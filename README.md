@@ -24,7 +24,7 @@ Implement an AWS CDK stack in TypeScript that includes:
 - ✅ IAM permissions and least-privilege configuration
 - ✅ Logging via CloudWatch Logs
 
-> **Bonus:** Support separate dev/prod stacks, add monitoring/alarms, or tagging.
+> **Bonus:** Add monitoring/alarms.
 
 ### 2. **CI/CD Pipeline (GitHub Actions)**
 Update the provided GitHub Actions workflow to:
@@ -119,7 +119,7 @@ npm run deploy
 
 ## 📬 Submission Guidelines
 
-- Push your changes to a public GitHub repository or share access to a private one
+- Push your changes to a public GitHub repository or share access to a private one with @hanshuebner.
 - Include a brief summary in a `SUBMISSION.md` file with:
     - How you approached the task
     - Any assumptions or trade-offs you made
