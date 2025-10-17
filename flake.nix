@@ -26,6 +26,7 @@
               nodejs_20 # nodejs v20 LTS
               just # just a command runner
               cocogitto # conventional commit toolkit
+              git-cliff # generate changelog
               husky # managing git hooks
               typos # check misspelling
             ];
