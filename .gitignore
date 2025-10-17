@@ -7,3 +7,5 @@ package-lock.json
 todo.md
 
 /.direnv
+
+.env
