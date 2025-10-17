@@ -22,6 +22,7 @@
         {
           default = pkgs.mkShell {
             packages = with pkgs; [
+              pgcli # an alternative to psql
               biome # linting js and ts
               nodejs_20 # nodejs v20 LTS
               just # just a command runner
