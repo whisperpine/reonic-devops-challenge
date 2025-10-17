@@ -1,13 +1,16 @@
-
 # 🧪 Reonic DevOps Take-Home Challenge
 
-Welcome to the Reonic DevOps & Platform Engineering challenge! This test simulates the kind of platform automation and infrastructure-as-code work you'd be doing with us.
+Welcome to the Reonic DevOps & Platform Engineering challenge! This test
+simulates the kind of platform automation and infrastructure-as-code work you'd
+be doing with us.
 
 ---
 
 ## 🌱 Context
 
-We provide you with a demo Lambda application packaged as a Docker container. Your job is to:
+We provide you with a demo Lambda application packaged as a Docker container.
+Your job is to:
+
 1. Add AWS CDK infrastructure to support it
 2. Update the GitHub Actions workflow to automate deployment
 
@@ -16,7 +19,9 @@ We provide you with a demo Lambda application packaged as a Docker container. Yo
 ## 🎯 Your Objectives
 
 ### 1. **Infrastructure-as-Code (CDK)**
+
 Implement an AWS CDK stack in TypeScript that includes:
+
 - ✅ An API Gateway endpoint triggering a Lambda (based on the Dockerfile)
 - ✅ A VPC with public and private subnets (min. 2 AZs)
 - ✅ A PostgreSQL RDS instance in the private subnets
@@ -27,7 +32,9 @@ Implement an AWS CDK stack in TypeScript that includes:
 > **Bonus:** Add monitoring/alarms.
 
 ### 2. **CI/CD Pipeline (GitHub Actions)**
+
 Update the provided GitHub Actions workflow to:
+
 - ✅ Build and push the Lambda container to ECR
 - ✅ Deploy the CDK stack on push to `main`
 - ✅ Use GitHub Actions secrets for AWS credentials
@@ -35,7 +42,8 @@ Update the provided GitHub Actions workflow to:
 ---
 
 ## 🧰 Project Structure
-```
+
+```txt
 reonic-devops-challenge/
 ├── app/                              # Application code
 │   ├── src/
@@ -61,24 +69,30 @@ reonic-devops-challenge/
 ## 🚀 Getting Started
 
 ### 🔧 Install dependencies
+
 ```bash
 npm run install:all
 ```
 
 ### 🧱 Compile TypeScript
+
 ```bash
 npm run build
 ```
 
-> This will build both the application and CDK stack. Be sure to run `npm run build` before building the Docker image.
+> This will build both the application and CDK stack. Be sure to run `npm run
+> build` before building the Docker image.
 
 ### 🧪 Run locally
+
 You can run the Lambda handler locally using Docker if needed:
+
 ```bash
 npm run test:local
 ```
 
 Or manually:
+
 ```bash
 cd app
 npm run build
@@ -87,6 +101,7 @@ docker run -p 9000:8080 local-lambda
 ```
 
 ### 🧪 Test Locally via Docker Compose
+
 The application now includes PostgreSQL integration. To test locally:
 
 ```bash
@@ -101,6 +116,7 @@ npm run test:lambda
 ```
 
 The Lambda function will:
+
 - Connect to PostgreSQL using environment variables
 - Create a `test_records` table if it doesn't exist
 - Insert a new row with a timestamped message
@@ -109,26 +125,30 @@ The Lambda function will:
 For detailed PostgreSQL setup instructions, see [POSTGRES_SETUP.md](./POSTGRES_SETUP.md).
 
 ### 🌐 Deploy
+
 ```bash
 npm run deploy
 ```
 
-> Make sure you have configured your AWS CLI with valid credentials, or use environment variables.
+> Make sure you have configured your AWS CLI with valid credentials, or use
+> environment variables.
 
 ---
 
 ## 📬 Submission Guidelines
 
-- Push your changes to a public GitHub repository or share access to a private one with @hanshuebner.
+- Push your changes to a public GitHub repository or share access to a private
+  one with @hanshuebner.
 - Include a brief summary in a `SUBMISSION.md` file with:
-    - How you approached the task
-    - Any assumptions or trade-offs you made
-    - How to use the solution and test it
-    - (Optional) What you would improve with more time
+  - How you approached the task
+  - Any assumptions or trade-offs you made
+  - How to use the solution and test it
+  - (Optional) What you would improve with more time
 
 ---
 
 ## 🧠 Evaluation Criteria
+
 | Area | What We’re Looking For |
 |------|------------------------|
 | ✅ Infrastructure Design | Clean, modular CDK with good defaults |
@@ -140,6 +160,7 @@ npm run deploy
 ---
 
 ## ⏱️ Time Expectation
+
 We suggest no more than **5 hours** of work. Focus on clarity and quality over quantity.
 
 We look forward to seeing what you build! ✨

@@ -1,12 +1,14 @@
 # 🐘 PostgreSQL Integration Guide
 
-This guide explains how the Lambda function connects to PostgreSQL and how to test it locally.
+This guide explains how the Lambda function connects to PostgreSQL and how to
+test it locally.
 
 ## 🔧 Database Configuration
 
 The Lambda function supports two ways to configure database credentials:
 
 ### 1. Environment Variables (Local Development)
+
 ```bash
 DB_HOST=localhost
 DB_PORT=5432
@@ -16,12 +18,14 @@ DB_PASSWORD=postgres
 ```
 
 ### 2. AWS Secrets Manager (Production)
+
 ```bash
 DB_SECRET_NAME=your-database-secret-name
 AWS_REGION=us-east-1
 ```
 
 The secret in AWS Secrets Manager should be a JSON object with:
+
 ```json
 {
   "host": "your-db-host",
@@ -35,6 +39,7 @@ The secret in AWS Secrets Manager should be a JSON object with:
 ## 🚀 Local Testing with Docker Compose
 
 ### Quick Start
+
 ```bash
 # Start PostgreSQL and Lambda services
 npm run test:compose
@@ -48,6 +53,7 @@ npm run test:lambda:runtime  # Lambda runtime interface testing
 ```
 
 ### Manual Testing
+
 ```bash
 # Start services
 docker-compose up -d
@@ -108,15 +114,18 @@ Each time the Lambda function is invoked, it:
 ## 🔍 Troubleshooting
 
 ### Connection Issues
+
 - Ensure PostgreSQL is running and accessible
 - Check that credentials are correct
 - Verify network connectivity between Lambda and database
 
 ### Permission Issues
+
 - Ensure the database user has CREATE TABLE and INSERT permissions
 - For AWS Secrets Manager, ensure Lambda has `secretsmanager:GetSecretValue` permission
 
 ### Local Development
+
 - Use `docker-compose logs` to check service logs
 - Ensure ports 5432 (PostgreSQL) and 9000 (Lambda) are available
 - Check that the Lambda container can reach the PostgreSQL container
@@ -131,9 +140,10 @@ For production deployment:
 4. **Configure VPC settings** if the database is in a private subnet
 
 Example CDK environment variable:
+
 ```typescript
 environment: {
   DB_SECRET_NAME: 'your-database-secret-name',
   AWS_REGION: 'us-east-1'
 }
-``` 
+```
