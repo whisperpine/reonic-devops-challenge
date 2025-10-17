@@ -25,6 +25,7 @@
               biome # linting js and ts
               nodejs_20 # nodejs v20 LTS
               just # just a command runner
+              cocogitto # conventional commit toolkit
             ];
             shellHook = ''
               npm run install:all
