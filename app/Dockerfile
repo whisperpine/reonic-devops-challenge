@@ -25,4 +25,4 @@ RUN npm ci --only=production
 # Copy built files from builder stage
 COPY --from=builder /var/task/dist/handler.js ./
 
-CMD ["handler.handler"] 
+CMD ["handler.handler"]
