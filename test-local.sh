@@ -6,7 +6,7 @@ echo "========================================"
 # Check if Docker Compose is running
 if ! docker compose ps | grep -q "reonic-lambda"; then
   echo "❌ Docker Compose services are not running. Starting them..."
-  docker compose up -d
+  docker compose up -d --build
   echo "⏳ Waiting for services to be ready..."
   sleep 5
 fi
