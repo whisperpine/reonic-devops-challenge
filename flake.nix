@@ -26,9 +26,14 @@
               nodejs_20 # nodejs v20 LTS
               just # just a command runner
               cocogitto # conventional commit toolkit
+              husky # managing git hooks
+              typos # check misspelling
             ];
             shellHook = ''
-              npm run install:all
+              # install git hook managed by husky
+              if [ ! -e "./.husky/_" ]; then
+                husky install
+              fi
             '';
           };
         }
