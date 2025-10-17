@@ -1,7 +1,7 @@
-const http = require("http");
-const { handler } = require("./dist/handler");
+import { createServer } from "http";
+import { handler } from "./dist/handler";
 
-const server = http.createServer(async (req, res) => {
+const server = createServer(async (req, res) => {
   // Set CORS headers
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
@@ -16,14 +16,14 @@ const server = http.createServer(async (req, res) => {
 
   try {
     let event = {};
-    let isLambdaInvocation = false;
+    // let isLambdaInvocation = false;
 
     // Check if this is a Lambda runtime invocation
     if (
       req.url === "/2015-03-31/functions/function/invocations" &&
       req.method === "POST"
     ) {
-      isLambdaInvocation = true;
+      // isLambdaInvocation = true;
 
       // Get request body
       let body = "";
