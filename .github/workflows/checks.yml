@@ -1,0 +1,39 @@
+name: Checks
+
+on:
+  pull_request:
+  push:
+    branches: ["main"]
+
+jobs:
+  typos:
+    runs-on: ubuntu-latest
+    name: spell check with typos
+    steps:
+      - uses: actions/checkout@v5
+      - uses: cachix/install-nix-action@v31
+      - name: Run typos command
+        shell: nix shell nixpkgs#typos --quiet --command bash {0}
+        run: typos --hidden --exclude .git --format brief
+
+  cocogitto:
+    runs-on: ubuntu-latest
+    name: check conventional commits
+    # Only run this step in the main branch.
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v5
+      - uses: cachix/install-nix-action@v31
+      - name: Check the latest commit message
+        shell: nix shell nixpkgs#cocogitto --quiet --command bash {0}
+        run: cog check HEAD..HEAD
+
+  markdownlint:
+    runs-on: ubuntu-latest
+    name: lint markdown by markdownlint
+    steps:
+      - uses: actions/checkout@v5
+      - uses: cachix/install-nix-action@v31
+      - name: Run markdownlint command
+        shell: nix shell nixpkgs#markdownlint-cli --quiet --command bash {0}
+        run: markdownlint ./*.md
