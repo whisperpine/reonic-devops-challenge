@@ -22,7 +22,6 @@ EXPOSE 8080
 RUN npm install -g http-server
 
 # Copy built files and create a simple server
-COPY dist/handler.js ./
 COPY local-server.js ./
 
-CMD ["node", "local-server.js"] 
+CMD ["node", "local-server.js"]
