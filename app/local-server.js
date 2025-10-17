@@ -1,5 +1,5 @@
 import { createServer } from "http";
-import { handler } from "./dist/handler";
+import { handler } from "./dist/handler.js";
 
 const server = createServer(async (req, res) => {
   // Set CORS headers
