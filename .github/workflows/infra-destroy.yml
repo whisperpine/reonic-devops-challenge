@@ -1,0 +1,39 @@
+name: Destroy Infrastructure
+
+on:
+  workflow_dispatch:
+    inputs:
+      cdk-environment:
+        description: the "environment" tag used in cdk
+        required: true
+        type: choice
+        default: "dev"
+        options:
+          - "dev"
+          - "prod"
+
+jobs:
+  destroy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        # Set working directory for apply job.
+        working-directory: ./cdk
+    environment: infra-${{ github.event.inputs.cdk-environment }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Destroy AWS infrastructure
+        run: npx cdk destroy --force
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
