@@ -22,7 +22,7 @@ jobs:
       run:
         # Set working directory for apply job.
         working-directory: ./cdk
-    environment: infra-${{ github.event.inputs.cdk-environment }}
+    environment: infra-${{ github.event.inputs.cdk-environment || 'dev' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v5
