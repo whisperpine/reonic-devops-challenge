@@ -1,6 +1,8 @@
 name: Deploy and Update Infrastructure
 
 on:
+  push:
+    branches: ["main"]
   workflow_dispatch:
     inputs:
       cdk-environment:
@@ -42,6 +44,11 @@ jobs:
       - name: Set env var CDK_STACK (prod)
         if: github.event.inputs.cdk-environment == 'prod'
         run: echo "CDK_STACK=ReonicDevOpsStackProd" >> "$GITHUB_ENV"
+
+        # Fallback to dev environment if not set.
+      - name: Set env var CDK_STACK (fallback)
+        if: github.event.inputs.cdk-environment == ''
+        run: echo "CDK_STACK=ReonicDevOpsStackDev" >> "$GITHUB_ENV"
 
       - name: Deploy AWS infrastructure
         run: npx cdk deploy "$CDK_STACK"
