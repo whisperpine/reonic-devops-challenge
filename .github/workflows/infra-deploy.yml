@@ -16,6 +16,7 @@ on:
 
 jobs:
   deploy:
+    name: cdk deploy
     runs-on: ubuntu-latest
     defaults:
       run:
