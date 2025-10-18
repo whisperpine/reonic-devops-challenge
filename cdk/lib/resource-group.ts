@@ -11,9 +11,10 @@ import { getTagFilters } from "./tags";
 export default function CreateResourceGroup(
   scope: Construct,
   tags: { [key: string]: string },
+  env: string,
 ): CfnGroup {
   return new CfnGroup(scope, "ReonicResourceGroup", {
-    name: "reonic-devops-resource-group",
+    name: `reonic-resource-group-${env}`,
     description: "All MyApp Dev resources",
     resourceQuery: {
       type: "TAG_FILTERS_1_0",

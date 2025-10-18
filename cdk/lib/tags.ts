@@ -1,23 +1,27 @@
 /**
  * The value for the key "repository"
  */
-const REPOSITORY: string = "reonic-devops-challenge";
+const REPOSITORY = "reonic-devops-challenge";
 /**
  * The value for the key "managed-by"
  */
-const MANAGED_BY: string = "cdk";
+const MANAGED_BY = "cdk";
 /**
  * The value for the key "owner"
  */
-const OWNER: string = "Yusong Lai";
+const OWNER = "Yusong Lai";
 /**
  * The value for the key "environment", in dev.
  */
-export const ENVIRONMENT_DEV: string = "dev";
+export const ENVIRONMENT_DEV = "dev";
 /**
  * The value for the key "environment", in prod.
  */
-export const ENVIRONMENT_PROD: string = "prod";
+export const ENVIRONMENT_PROD = "prod";
+/**
+ * All possible values for the "environment" tag.
+ */
+export const ENVIRONMENTS: string[] = [ENVIRONMENT_PROD, ENVIRONMENT_DEV];
 
 // Stack.tags
 interface Tags {

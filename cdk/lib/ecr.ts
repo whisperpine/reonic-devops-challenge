@@ -8,10 +8,10 @@ import { Repository } from "aws-cdk-lib/aws-ecr";
  * @param scope Pass "this" in the constructor of InfraStack.
  * @returns The created AWS ECR repository.
  */
-export default function CreateECR(scope: Construct): Repository {
+export default function CreateECR(scope: Construct, env: string): Repository {
   // ECR repository.
   const repo = new Repository(scope, "ReonicECRRepository", {
-    repositoryName: "reonic-devops-ecr", // Human-readable name
+    repositoryName: `reonic-ecr-${env}`, // Human-readable name
     imageScanOnPush: true, // Auto-scan for vulnerabilities
     removalPolicy: RemovalPolicy.DESTROY, // Clean up on destroy
     emptyOnDelete: true, // Delete images on stack destroy
