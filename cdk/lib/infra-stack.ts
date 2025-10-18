@@ -4,7 +4,6 @@ import { Construct } from "constructs";
 
 import { defaultTags } from "./tags";
 import CreateResourceGroup from "./resource-group";
-import CreateECR from "./ecr";
 
 export class InfraStack extends Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -19,8 +18,5 @@ export class InfraStack extends Stack {
 
     // Create an AWS Resource Group.
     CreateResourceGroup(this, mergedTags);
-
-    // Create an AWS ECR repository.
-    CreateECR(this);
   }
 }
