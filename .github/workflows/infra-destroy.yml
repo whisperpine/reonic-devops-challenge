@@ -32,8 +32,16 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Set env var CDK_STACK (dev)
+        if: github.event.inputs.cdk-environment == 'dev'
+        run: echo "CDK_STACK=ReonicDevOpsStackDev" >> "$GITHUB_ENV"
+
+      - name: Set env var CDK_STACK (prod)
+        if: github.event.inputs.cdk-environment == 'prod'
+        run: echo "CDK_STACK=ReonicDevOpsStackProd" >> "$GITHUB_ENV"
+
       - name: Destroy AWS infrastructure
-        run: npx cdk destroy --force
+        run: npx cdk destroy --force "$CDK_STACK"
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
