@@ -1,0 +1,12 @@
+stores:
+  json:
+    indent: 2
+  yaml:
+    indent: 2
+keys:
+  - &yusong age19wm0azdvywzdssmcp74us8ty4pkjmm8am8fnlarkp36eknuyv4ssfaxwc6
+creation_rules:
+  - path_regex: ^encrypted\.env$
+    key_groups:
+      - age:
+          - *yusong
