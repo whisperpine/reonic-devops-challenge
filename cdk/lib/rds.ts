@@ -47,6 +47,7 @@ export default function CreateRds(
     publiclyAccessible: false,
     // Certain fields will be added to the secret (e.g. host, port, engine).
     credentials: Credentials.fromSecret(secret),
+    databaseName: DB_NAME,
     multiAz: false, // todo
     instanceType: InstanceType.of(
       InstanceClass.T3,
@@ -56,3 +57,13 @@ export default function CreateRds(
 
   return db;
 }
+
+/**
+ * The name of the database of Postgres instance.
+ */
+export const DB_NAME = "app_db";
+
+/**
+ * The name of the user of Postgres instance.
+ */
+export const DB_USERNAME = "app_user";

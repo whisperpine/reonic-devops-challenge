@@ -1,5 +1,6 @@
 import { Construct } from "constructs";
 import { Secret } from "aws-cdk-lib/aws-secretsmanager";
+import { DB_NAME, DB_USERNAME } from "./rds";
 
 /**
  * Create an AWS Secrets Manager.
@@ -14,8 +15,8 @@ export default function CreateSecret(scope: Construct): Secret {
         // host: // will be assigned by RDS instances (see ./rds.ts)
         // port: // will be assigned by RDS instances (see ./rds.ts)
         // password: // will be generated below (generateStringKey)
-        database: "postgres",
-        username: "postgres",
+        database: DB_NAME,
+        username: DB_USERNAME,
       }),
       generateStringKey: "password",
       excludePunctuation: false, // we only want to exclude specific ones
