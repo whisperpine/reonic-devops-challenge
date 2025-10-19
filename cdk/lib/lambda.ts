@@ -1,6 +1,7 @@
 import { CfnOutput, Duration } from "aws-cdk-lib";
 import { DockerImageCode, DockerImageFunction } from "aws-cdk-lib/aws-lambda";
 import { IRepository, Repository } from "aws-cdk-lib/aws-ecr";
+import { SubnetType, Vpc } from "aws-cdk-lib/aws-ec2";
 import { Construct } from "constructs";
 
 // todo:
@@ -10,9 +11,13 @@ import { Construct } from "constructs";
 /**
  * Create an AWS Lambda Function.
  * @param scope Pass "this" in the constructor of InfraStack.
+ * @param vpc The AWS VPC that this Lambda Function will be attached to.
  * @returns The created AWS Lambda Function.
  */
-export default function CreateLambda(scope: Construct): DockerImageFunction {
+export default function CreateLambda(
+  scope: Construct,
+  vpc: Vpc,
+): DockerImageFunction {
   // Reference the existing ECR repository managed by "CDKToolkit" stack.
   const ecrRepository: IRepository = Repository.fromRepositoryName(
     scope,
@@ -30,7 +35,9 @@ export default function CreateLambda(scope: Construct): DockerImageFunction {
       NODE_ENV: "production", // Options: "production", "staging", "development".
       DB_SECRET_NAME: "", // Used to get credentials from AWS Secrets Manager. // todo
     },
-    // vpc: ... // todo
+
+    vpc,
+    vpcSubnets: { subnetType: SubnetType.PRIVATE_ISOLATED },
     // role: ... // todo
   });
 
