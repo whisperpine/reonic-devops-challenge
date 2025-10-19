@@ -6,6 +6,7 @@ import { Repository } from "aws-cdk-lib/aws-ecr";
 /**
  * Create an AWS ECR repository.
  * @param scope Pass "this" in the constructor of InfraStack.
+ * @param env The value of the tag "environment".
  * @returns The created AWS ECR repository.
  */
 export default function CreateECR(scope: Construct, env: string): Repository {
