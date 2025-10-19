@@ -80,7 +80,10 @@ export const handler = async (_: any) => {
     const dbConfig = await getDatabaseConfig();
 
     // Create database client
-    client = new Client(dbConfig);
+    client = new Client({
+      ...dbConfig,
+      ssl: { rejectUnauthorized: false }, // Allows self-signed SSL
+    });
     await client.connect();
 
     // Initialize database table
