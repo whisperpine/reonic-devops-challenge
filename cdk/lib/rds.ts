@@ -17,7 +17,7 @@ import {
 import { SUBNET_DB } from "./vpc";
 
 // todo:
-// auto backup
+// multi-region, standby instance for failover
 
 /**
  * Create an AWS RDS Postgres instance.
@@ -61,9 +61,9 @@ export default function CreateRds(
 /**
  * The name of the database of Postgres instance.
  */
-export const DB_NAME = "app_db";
+export const DB_NAME = "postgres";
 
 /**
  * The name of the user of Postgres instance.
  */
-export const DB_USERNAME = "app_user";
+export const DB_USERNAME = "postgres";
