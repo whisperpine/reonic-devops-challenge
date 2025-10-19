@@ -15,8 +15,8 @@ export default function CreateSecret(scope: Construct): Secret {
         // host: // will be assigned by RDS instances (see ./rds.ts)
         // port: // will be assigned by RDS instances (see ./rds.ts)
         // password: // will be generated below (generateStringKey)
-        database: DB_NAME,
-        username: DB_USERNAME,
+        database: DB_NAME, // another field will be auto assigned (but what we need is "database")
+        username: DB_USERNAME, // used for RDS instance creation
       }),
       generateStringKey: "password",
       excludePunctuation: true, // Punctuations will cause "password authentication failed" error
