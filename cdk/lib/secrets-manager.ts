@@ -19,8 +19,7 @@ export default function CreateSecret(scope: Construct): Secret {
         username: DB_USERNAME,
       }),
       generateStringKey: "password",
-      excludePunctuation: false, // we only want to exclude specific ones
-      excludeCharacters: `/@" `, // forbidden characters: slash, at, quote, space
+      excludePunctuation: true, // Punctuations will cause "password authentication failed" error
       passwordLength: 32,
     },
   });
