@@ -4,7 +4,7 @@ import { IRepository, Repository } from "aws-cdk-lib/aws-ecr";
 import { DatabaseInstance } from "aws-cdk-lib/aws-rds";
 import { Secret } from "aws-cdk-lib/aws-secretsmanager";
 import { Construct } from "constructs";
-import { ISubnet, Port, SecurityGroup, Vpc } from "aws-cdk-lib/aws-ec2";
+import { ISubnet, SecurityGroup, Vpc } from "aws-cdk-lib/aws-ec2";
 
 import { SUBNET_APP } from "./vpc";
 
@@ -38,12 +38,8 @@ export default function CreateLambda(
     allowAllOutbound: true,
   });
 
-  // Allow Lambda SG to connect to RDS SG on PostgreSQL port 5432.
-  db.connections.allowFrom(
-    lambdaSG,
-    Port.tcp(5432),
-    "Allow Lambda to access Postgres",
-  );
+  // Allow Lambda SG to connect to RDS SG on PostgreSQL default port.
+  db.connections.allowDefaultPortFrom(lambdaSG);
 
   // Filter out the subnets dedicated for applications.
   const selectedSubnets: ISubnet[] = vpc.isolatedSubnets.filter((
