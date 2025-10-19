@@ -41,11 +41,40 @@ jobs:
             type=semver,pattern={{major}}.{{minor}}
             type=sha,prefix=,format=short
 
+      - name: Check if ECR tag already exists
+        id: check_tag
+        run: |
+          registry_repo_name="174919262311.dkr.ecr.us-east-1.amazonaws.com/cdk-hnb659fds-container-assets-174919262311-us-east-1"
+          repo_name="cdk-hnb659fds-container-assets-174919262311-us-east-1"
+          meta_tags=$(printf '%s' "${{ steps.meta.outputs.tags }}" | tr '\n' ' ')
+          tempfile=$(mktemp)
+          for registry_repo_tag in $meta_tags; do
+            tag=$(echo "$registry_repo_tag" | grep -Po "(?<=:).*$") # e.g. "latest", "0.1.0"
+            if ! aws ecr describe-images \
+              --region us-east-1 \
+              --image-ids imageTag="$tag" \
+              --repository-name "$repo_name" >/dev/null 2>&1; then
+              echo "$registry_repo_name:$tag" >> "$tempfile"
+            fi
+          done
+          # Output the "tags" variable for the following steps.
+          {
+            echo "tags<<EOF"
+            cat "$tempfile"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+          # Output the "push" variable for the following steps.
+          if [ "$(cat "$tempfile")" = "" ]; then
+            echo "push=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "push=true" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
           context: ./app
-          push: true
+          push: ${{ steps.check_tag.outputs.push }}
           labels: ${{ steps.meta.outputs.labels }}
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: ${{ steps.check_tag.outputs.tags }}
           provenance: false
