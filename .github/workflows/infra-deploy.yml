@@ -52,7 +52,7 @@ jobs:
         run: echo "CDK_STACK=ReonicDevOpsStackDev" >> "$GITHUB_ENV"
 
       - name: Deploy AWS infrastructure
-        run: npx cdk deploy "$CDK_STACK"
+        run: npx cdk deploy --require-approval never "$CDK_STACK"
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
