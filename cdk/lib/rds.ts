@@ -14,6 +14,8 @@ import {
   PostgresEngineVersion,
 } from "aws-cdk-lib/aws-rds";
 
+import { SUBNET_DB } from "./vpc";
+
 // todo:
 // auto backup
 
@@ -32,7 +34,7 @@ export default function CreateRds(
   // Filter out the subnets dedicated for RDS instances.
   const selectedSubnets: ISubnet[] = vpc.isolatedSubnets.filter((
     subnet: ISubnet,
-  ): boolean => subnet.node.path.includes("PrivateDB"));
+  ): boolean => subnet.node.path.includes(SUBNET_DB));
 
   // RDS Postgres instance.
   const db = new DatabaseInstance(scope, "ReonicPostgres", {

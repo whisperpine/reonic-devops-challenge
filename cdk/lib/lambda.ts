@@ -4,13 +4,9 @@ import { IRepository, Repository } from "aws-cdk-lib/aws-ecr";
 import { DatabaseInstance } from "aws-cdk-lib/aws-rds";
 import { Secret } from "aws-cdk-lib/aws-secretsmanager";
 import { Construct } from "constructs";
-import {
-  ISubnet,
-  Port,
-  SecurityGroup,
-  SubnetType,
-  Vpc,
-} from "aws-cdk-lib/aws-ec2";
+import { ISubnet, Port, SecurityGroup, Vpc } from "aws-cdk-lib/aws-ec2";
+
+import { SUBNET_APP } from "./vpc";
 
 // todo:
 // - Bind IAM Roles.
@@ -52,7 +48,7 @@ export default function CreateLambda(
   // Filter out the subnets dedicated for applications.
   const selectedSubnets: ISubnet[] = vpc.isolatedSubnets.filter((
     subnet: ISubnet,
-  ): boolean => subnet.node.path.includes("PrivateApp"));
+  ): boolean => subnet.node.path.includes(SUBNET_APP));
 
   // Create the Lambda function using the container image.
   const lambdaFunction = new DockerImageFunction(scope, "ReonicLambda", {

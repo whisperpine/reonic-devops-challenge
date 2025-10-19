@@ -19,19 +19,19 @@ export default function CreateVpc(scope: Construct): Vpc {
         // These public subnets are created as require by the tasks in REAME.md,
         // but are not actually used by any AWS resources.
         cidrMask: 24,
-        name: "Public",
+        name: SUBNET_PUBLIC,
         subnetType: SubnetType.PUBLIC,
       },
       {
         // These private subnets are meant to be used with apps (e.g. Lambda).
         cidrMask: 24,
-        name: "PrivateApp", // will be used to filter subnets in ./lambda.ts
+        name: SUBNET_APP, // will be used to filter subnets in ./lambda.ts
         subnetType: SubnetType.PRIVATE_ISOLATED,
       },
       {
         // These private subnets are meant to be used with databases (e.g. RDS).
         cidrMask: 28,
-        name: "PrivateDB", // will be used to filter subnets in ./rds.ts
+        name: SUBNET_DB, // will be used to filter subnets in ./rds.ts
         subnetType: SubnetType.PRIVATE_ISOLATED,
       },
     ],
@@ -44,3 +44,21 @@ export default function CreateVpc(scope: Construct): Vpc {
 
   return vpc;
 }
+
+/**
+ * Part of the name of public subnets.
+ * Can be used for filtering subnets.
+ */
+export const SUBNET_PUBLIC = "Public";
+
+/**
+ * Part of the name of private subnets for applications.
+ * Can be used for filtering subnets.
+ */
+export const SUBNET_APP = "PrivateApp";
+
+/**
+ * Part of the name of private subnets for databases.
+ * Can be used for filtering subnets.
+ */
+export const SUBNET_DB = "PrivateDB";
