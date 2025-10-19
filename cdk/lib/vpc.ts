@@ -1,5 +1,9 @@
 import { Construct } from "constructs";
-import { SubnetType, Vpc } from "aws-cdk-lib/aws-ec2";
+import {
+  InterfaceVpcEndpointAwsService,
+  SubnetType,
+  Vpc,
+} from "aws-cdk-lib/aws-ec2";
 
 /**
  * Create an AWS VPC and relevant resources.
@@ -7,7 +11,7 @@ import { SubnetType, Vpc } from "aws-cdk-lib/aws-ec2";
  * @returns The created AWS VPC.
  */
 export default function CreateVpc(scope: Construct): Vpc {
-  return new Vpc(scope, "ReonicVPC", {
+  const vpc = new Vpc(scope, "ReonicVPC", {
     maxAzs: 2,
     natGateways: 0, // we don't actually use public subnets.
     subnetConfiguration: [
@@ -21,15 +25,22 @@ export default function CreateVpc(scope: Construct): Vpc {
       {
         // These private subnets are meant to be used with apps (e.g. Lambda).
         cidrMask: 24,
-        name: "PrivateApp",
+        name: "PrivateApp", // will be used to filter subnets in ./lambda.ts
         subnetType: SubnetType.PRIVATE_ISOLATED,
       },
       {
         // These private subnets are meant to be used with databases (e.g. RDS).
         cidrMask: 28,
-        name: "PrivateDB",
+        name: "PrivateDB", // will be used to filter subnets in ./rds.ts
         subnetType: SubnetType.PRIVATE_ISOLATED,
       },
     ],
   });
+
+  // Add VPC Endpoint for Secrets Manager.
+  vpc.addInterfaceEndpoint("SecretsManagerEndpoint", {
+    service: InterfaceVpcEndpointAwsService.SECRETS_MANAGER,
+  });
+
+  return vpc;
 }

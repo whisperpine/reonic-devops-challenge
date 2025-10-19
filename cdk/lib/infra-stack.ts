@@ -1,13 +1,19 @@
+// Import third party modules.
 import * as cdk from "aws-cdk-lib";
 import { Stack } from "aws-cdk-lib";
 import { Construct } from "constructs";
 import { DockerImageFunction } from "aws-cdk-lib/aws-lambda";
 import { Vpc } from "aws-cdk-lib/aws-ec2";
+import { Secret } from "aws-cdk-lib/aws-secretsmanager";
+import { DatabaseInstance } from "aws-cdk-lib/aws-rds";
 
+// Import local modules in this repository.
 import { defaultTags, ENVIRONMENTS } from "./tags";
 import CreateResourceGroup from "./resource-group";
 import CreateLambda from "./lambda";
 import CreateAPIGateway from "./api-gateway";
+import CreateSecret from "./secrets-manager";
+import CreateRds from "./rds";
 import CreateVpc from "./vpc";
 
 export class InfraStack extends Stack {
@@ -38,8 +44,14 @@ export class InfraStack extends Stack {
     // Create an AWS VPC and relevant resources.
     const vpc: Vpc = CreateVpc(this);
 
+    // Create an AWS Secrets Manager.
+    const secret: Secret = CreateSecret(this);
+
+    // Create an AWS RDS Postgres instance.
+    const db: DatabaseInstance = CreateRds(this, vpc, secret);
+
     // Create an AWS Lambda Function.
-    const lambda: DockerImageFunction = CreateLambda(this, vpc);
+    const lambda: DockerImageFunction = CreateLambda(this, vpc, secret, db);
 
     // Create an AWS API Gateway.
     CreateAPIGateway(this, lambda);
