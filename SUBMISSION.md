@@ -6,6 +6,20 @@ I've accomplished all the objectives in README.md with good practices.
 
 Let's cut to the chase - Here's my solution.
 
+## Table of contents
+
+- [Table of contents](#table-of-contents)
+- [The cloud architecture](#the-cloud-architecture)
+- [How I approached the task](#how-i-approached-the-task)
+- [Assumptions and trade-offs I made](#assumptions-and-trade-offs-i-made)
+- [How to use the solution and test it](#how-to-use-the-solution-and-test-it)
+  - [How to test it](#how-to-test-it)
+  - [How to use the solution in CI](#how-to-use-the-solution-in-ci)
+  - [How to use the solution locally](#how-to-use-the-solution-locally)
+- [What I would improve with more time](#what-i-would-improve-with-more-time)
+- [Things that I would like to share](#things-that-i-would-like-to-share)
+- [AWS downtime and thoughts on it](#aws-downtime-and-thoughts-on-it)
+
 ## The cloud architecture
 
 ![reonic-aws-architecture](./assets/reonic-aws-architecture.webp)
@@ -55,7 +69,7 @@ Unreleased:
 
 - Write this document [SUBMISSION.md](./SUBMISSION.md).
 
-## Any assumptions or trade-offs you made
+## Assumptions and trade-offs I made
 
 Assumptions:
 
