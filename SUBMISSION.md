@@ -23,18 +23,38 @@ AWS Console (I assume you have the permission to access the AWS Console):
 {"message":"Successfully inserted record and retrieved count","insertedId":10,"totalRecords":10,"timestamp":"2025-10-20T17:12:15.396Z"}
 ```
 
-### How to use the solution
+### How to use the solution in CI
 
 You need to be a github collaborator of this repository to have permissions to
 manually trigger the CI/CD pipelines via `workflow_dispatch`. I've already sent
 an invitation to Hans (@hanshuebner). Please let me know if there's a permission
-issue run trigger CI pipelines.
+issue run trigger CI pipelines (by opening an GitHub Issue or sending me an email).
 
 Assume that Hans has the permission, follow these steps to deploy the cloud infra:
 
 ![github-actions-deploy-infra](./assets/github-actions-deploy-infra.webp)
 
 To destroy the infra, just run the "Destroy Infrastructure" workflow with.
+
+### How to use the solution locally
+
+It's generally recommended to use this solution in CI for simplicity.
+This section is only useful if you want to try it locally.
+
+Prerequisites:
+
+- The AWS IAM user with permissions to run CDK, and it's already configured.
+- Make sure that you have locally install nodejs and [just](https://github.com/casey/just).
+
+Steps:
+
+- Clone this repotory and `cd` into the root directory of this repo.
+- Run `just install` command to install npm packages in "node_modules".
+- Run `just deploy` command to deploy the dev stack "ReonicDevOpsStackDev".
+  (This may take less than 1 minute if there's no changes, and may take no more
+  10 minutes if the stack doesn't exist or big changes are made).
+- Look around in the AWS console...
+- Run `just destroy` command to destroy the dev stack "ReonicDevOpsStackDev".
 
 ## What you would improve with more time
 
