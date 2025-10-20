@@ -6,6 +6,10 @@ I've accomplished all the objectives in README.md with good practices.
 
 Let's cut to the chase - Here's my solution.
 
+## Graph of the cloud architecture
+
+![reonic-aws-architecture](./assets/reonic-aws-architecture.webp)
+
 ## How you approached the task
 
 ```mermaid
