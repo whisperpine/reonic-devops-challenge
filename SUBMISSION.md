@@ -203,6 +203,9 @@ db.connections.allowDefaultPortFrom(lambdaSG);
   Currently the Lambda Function is using the "latest" tag of the container
   image, which is not a good practice. We'd better use a semver-tagged image.
 
+- Use [trivy](https://github.com/aquasecurity/trivy) to scan vulnerabilities in
+  container images and node package dependencies.
+
 ## Things that I would like to share
 
 There're things that I'd like to share, which could be notable or
@@ -294,6 +297,9 @@ nice-to-have, big or small (unordered):
   However if you're looking for a general purpose command runner with more
   advanced features, and most importantly, with less keystrokes (`just xxx`),
   I recommend [just](https://github.com/casey/just) (see [justfile](./justfile)).
+
+- Ensure typescript coding best practices by [biome](https://github.com/biomejs/biome)
+  in CI checks.
 
 ## AWS downtime and thoughts on it
 
