@@ -31,6 +31,7 @@
               git-cliff # generate changelog
               husky # managing git hooks
               typos # check misspelling
+              awscli2 # aws command line tool
             ];
             shellHook = ''
               # install git hook managed by husky
