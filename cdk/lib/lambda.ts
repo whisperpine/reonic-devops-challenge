@@ -60,15 +60,17 @@ export default function CreateLambda(
   // on this specific secret, granting the lambda function to read.
   secret.grantRead(lambdaFunction);
 
-  // Output the Lambda function's name.
-  new CfnOutput(scope, "LambdaFunctionName", {
-    value: lambdaFunction.functionName,
-  });
-
-  // Output the Lambda function's ARN.
-  new CfnOutput(scope, "LambdaFunctionArn", {
-    value: lambdaFunction.functionArn,
-  });
+  // // Output the Lambda Function's name.
+  // new CfnOutput(scope, "LambdaFunctionName", {
+  //   value: lambdaFunction.functionName,
+  //   description: "The Lambda Function's Name.",
+  // });
+  //
+  // // Output the Lambda Function's ARN.
+  // new CfnOutput(scope, "LambdaFunctionArn", {
+  //   value: lambdaFunction.functionArn,
+  //   description: "The Lambda Function's ARN.",
+  // });
 
   return lambdaFunction;
 }
