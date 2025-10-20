@@ -55,6 +55,19 @@ Unreleased:
 
 - Write this document [SUBMISSION.md](./SUBMISSION.md).
 
+## Any assumptions or trade-offs you made
+
+Assumptions:
+
+- There's an existing ECR repository (the one managed by `CDKToolkit` stack).
+- All requests sent to the API Gateway will be handled by the Lambda Function `app`.
+
+Trade-offs:
+
+- `cdk-reonic-devops-challenge` is the IAM user who has permission to run CDK.
+  It's the *only* AWS resource created manually - other AWS resources are all
+  managed by CDK. This trade-off is about exceptions of a fully-automated setup.
+
 ## How to use the solution and test it
 
 ### How to test it
@@ -94,7 +107,7 @@ This section is only useful if you want to try it locally.
 Prerequisites:
 
 - The AWS IAM user with permissions to run CDK, and it's already configured.
-- Make sure that you have locally install nodejs and [just](https://github.com/casey/just).
+- Make sure that you have locally installed nodejs and [just](https://github.com/casey/just).
 
 Steps:
 
@@ -150,7 +163,7 @@ Steps:
   Currently the Lambda Function is using the "latest" tag of the container
   image, which is not a good practice. We'd better use a semver-tagged image.
 
-## "Boasting Time"
+## Things that I'd like to share
 
 There're things that I'd like to share, which could be notable or
 nice-to-have, big or small (unordered):
@@ -242,7 +255,7 @@ nice-to-have, big or small (unordered):
   advanced features, and most importantly, with less keystrokes (`just xxx`),
   I recommend [just](https://github.com/casey/just) (see [justfile](./justfile)).
 
-## AWS Downtime
+## AWS downtime and thoughts on it
 
 Coincidently, I encountered a downtime of AWS itself:
 [Multiple services were disrupted in us-east-1 on October 20](https://health.aws.amazon.com/health/status?eventID=arn:aws:health:us-east-1::event/MULTIPLE_SERVICES/AWS_MULTIPLE_SERVICES_OPERATIONAL_ISSUE/AWS_MULTIPLE_SERVICES_OPERATIONAL_ISSUE_BA540_514A652BE1A).
