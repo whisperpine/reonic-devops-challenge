@@ -6,11 +6,11 @@ I've accomplished all the objectives in README.md with good practices.
 
 Let's cut to the chase - Here's my solution.
 
-## Graph of the cloud architecture
+## The cloud architecture
 
 ![reonic-aws-architecture](./assets/reonic-aws-architecture.webp)
 
-## How you approached the task
+## How I approached the task
 
 ```mermaid
 gantt
@@ -119,7 +119,7 @@ Steps:
 - Look around in the AWS console...
 - Run `just destroy` command to destroy the dev stack "ReonicDevOpsStackDev".
 
-## What you would improve with more time
+## What I would improve with more time
 
 - Make changes via Pull Requests rather than pushing directly to the main branch.
 
@@ -163,7 +163,7 @@ Steps:
   Currently the Lambda Function is using the "latest" tag of the container
   image, which is not a good practice. We'd better use a semver-tagged image.
 
-## Things that I'd like to share
+## Things that I would like to share
 
 There're things that I'd like to share, which could be notable or
 nice-to-have, big or small (unordered):
