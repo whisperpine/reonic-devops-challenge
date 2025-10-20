@@ -6,6 +6,36 @@ I've accomplished all the objectives in README.md with good practices.
 
 Let's cut to the chase - Here's my solution.
 
+## How to use the solution and test it
+
+### How to test it
+
+For end-to-end test, just open the URL of API Gateway (either in a browser or by
+`curl` command). For satefy reasons (though it's public accessible), I choose to
+not include the URL directly in this document. Thus you can find the URL in the
+AWS Console (I assume you have the permission to access the AWS Console):
+
+![aws-console-end-to-end-test](./assets/aws-console-end-to-end-test.webp)
+
+:tada: And you'll see something looks like this:
+
+```json
+{"message":"Successfully inserted record and retrieved count","insertedId":10,"totalRecords":10,"timestamp":"2025-10-20T17:12:15.396Z"}
+```
+
+### How to use the solution
+
+You need to be a github collaborator of this repository to have permissions to
+manually trigger the CI/CD pipelines via `workflow_dispatch`. I've already sent
+an invitation to Hans (@hanshuebner). Please let me know if there's a permission
+issue run trigger CI pipelines.
+
+Assume that Hans has the permission, follow these steps to deploy the cloud infra:
+
+![github-actions-deploy-infra](./assets/github-actions-deploy-infra.webp)
+
+To destroy the infra, just run the "Destroy Infrastructure" workflow with.
+
 ## What you would improve with more time
 
 - Make changes via Pull Requests rather than pushing directly to the main branch.
