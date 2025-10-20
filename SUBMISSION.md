@@ -8,6 +8,21 @@ Let's cut to the chase - Here's my solution.
 
 ## How you approached the task
 
+```mermaid
+gantt
+    title reonic-devops-challenge timeline
+    dateFormat YYYY-MM-DD
+    section Pre stage
+        Pre stage   :a0, 2025-10-17, 12h
+    section Hands-on
+        v0.1.0      :a1, after a0, 12h
+        v0.2.0      :a2, after a1, 18h
+        v0.2.1      :a21, after a2, 6h
+        v0.3.0      :a3, after a21, 1d
+    section Unreleased
+        Unreleased  :2025-10-22
+```
+
 Pre stage:
 
 - Read the document to get an overview of what to implement.
