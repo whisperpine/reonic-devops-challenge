@@ -58,12 +58,8 @@ export default function CreateRds(
   return db;
 }
 
-/**
- * The name of the database of Postgres instance.
- */
+/** The name of the database of Postgres instance. */
 export const DB_NAME = "postgres";
 
-/**
- * The name of the user of Postgres instance.
- */
+/** The name of the user of Postgres instance. */
 export const DB_USERNAME = "postgres";

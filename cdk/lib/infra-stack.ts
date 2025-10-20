@@ -16,6 +16,7 @@ import CreateSecret from "./secrets-manager";
 import CreateRds from "./rds";
 import CreateVpc from "./vpc";
 
+/** The entrypoint for setting up an AWS Cloudformation Stack. */
 export class InfraStack extends Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     // Merged tags.

@@ -1,43 +1,29 @@
-/**
- * The value for the key "repository"
- */
+/** The value for the key "repository" */
 const REPOSITORY = "reonic-devops-challenge";
-/**
- * The value for the key "managed-by"
- */
+/** The value for the key "managed-by" */
 const MANAGED_BY = "cdk";
-/**
- * The value for the key "owner"
- */
+/** The value for the key "owner" */
 const OWNER = "Yusong Lai";
-/**
- * The value for the key "environment", in dev.
- */
+/** The value for the key "environment", in dev. */
 export const ENVIRONMENT_DEV = "dev";
-/**
- * The value for the key "environment", in prod.
- */
+/** The value for the key "environment", in prod. */
 export const ENVIRONMENT_PROD = "prod";
-/**
- * All possible values for the "environment" tag.
- */
+/** All possible values for the "environment" tag. */
 export const ENVIRONMENTS: string[] = [ENVIRONMENT_PROD, ENVIRONMENT_DEV];
 
-// Stack.tags
+// The same as `Stack.tags`.
 interface Tags {
   [key: string]: string;
 }
 
-/**
- * The default tags for all AWS resources.
- */
+/** The default tags for all AWS resources. */
 export const defaultTags: Tags = {
   "repository": REPOSITORY,
   "managed-by": MANAGED_BY,
   "owner": OWNER,
 };
 
-// CfnGroup.TagFilterProperty
+// The same as `CfnGroup.TagFilterProperty`.
 interface TagFilterProperty {
   readonly key?: string;
   readonly values?: Array<string>;

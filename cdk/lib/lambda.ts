@@ -8,10 +8,6 @@ import { ISubnet, SecurityGroup, Vpc } from "aws-cdk-lib/aws-ec2";
 
 import { SUBNET_APP } from "./vpc";
 
-// todo:
-// - Bind IAM Roles.
-// - Assign it to a subnet.
-
 /**
  * Create an AWS Lambda Function.
  * @param scope Pass "this" in the constructor of InfraStack.
