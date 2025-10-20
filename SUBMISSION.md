@@ -6,6 +6,36 @@ I've accomplished all the objectives in README.md with good practices.
 
 Let's cut to the chase - Here's my solution.
 
+## How you approached the task
+
+Pre stage:
+
+- Read the document to get an overview of what to implement.
+- Do system design by hand writing and drawing, discuss certain parts with LLM.
+- Familiarize myself with AWS CDK (as it's the first time for me to use it).
+
+[v0.1.0](https://github.com/whisperpine/reonic-devops-challenge/releases/tag/v0.1.0):
+
+- Set up local dev environment.
+- Make sure it works in local tests.
+
+[v0.2.0](https://github.com/whisperpine/reonic-devops-challenge/releases/tag/v0.2.0):
+
+- Set up CDK (IAM user and permissions, encrypted access key).
+- Use CDK to create AWS Resource Group (as a testbed).
+- CI: build and push container image; deploy and destroy infra.
+- Support multiple stacks ("dev" and "prod").
+
+[v0.3.0](https://github.com/whisperpine/reonic-devops-challenge/releases/tag/v0.3.0):
+
+- Create multiple AWS resources by CDK:\
+  VPC, Lambda, API Gateway, Secrets Manager, RDS.
+- Make it work end-to-end for the first time.
+
+Unreleased:
+
+- Write this document [SUBMISSION.md](./SUBMISSION.md).
+
 ## How to use the solution and test it
 
 ### How to test it
@@ -34,7 +64,8 @@ Assume that Hans has the permission, follow these steps to deploy the cloud infr
 
 ![github-actions-deploy-infra](./assets/github-actions-deploy-infra.webp)
 
-To destroy the infra, just run the "Destroy Infrastructure" workflow with.
+To destroy the infra, just run the "Destroy Infrastructure" workflow with
+similar steps.
 
 ### How to use the solution locally
 
@@ -133,12 +164,13 @@ nice-to-have, big or small (unordered):
   have different input values.
 
 - GitHub Environment is corresponding to the Stack environment.
-  The GitHub Environment `infra-dev` matches `ReonicDevOpsStackDev` stack,
-  while `infra-prod` matches `ReonicDevOpsStackProd` stack. It's useful in CI,
+  The GitHub Environment [infra-dev](https://github.com/whisperpine/reonic-devops-challenge/deployments/infra-dev)
+  matches `ReonicDevOpsStackDev` stack, while [infra-prod](https://github.com/whisperpine/reonic-devops-challenge/deployments/infra-prod)
+  matches `ReonicDevOpsStackProd` stack. It's useful in CI,
   because different GitHub Environments can have different values of the
   Variables and Secrets used in CI pipelines. We can harness this mechanism
   to make certain parameters differ in "dev" and "prod" environments
-  (e.g. The instance type of RDS).
+  (e.g. the instance type of RDS).
 
 - Dev environment wrapped together with source code.
   This ensures dev environment consistency across developers and everything
