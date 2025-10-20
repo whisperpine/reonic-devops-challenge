@@ -16,6 +16,7 @@ Let's cut to the chase - Here's my solution.
   - [How to test it](#how-to-test-it)
   - [How to use the solution in CI](#how-to-use-the-solution-in-ci)
   - [How to use the solution locally](#how-to-use-the-solution-locally)
+- [Questions you may be interested in](#questions-you-may-be-interested-in)
 - [What I would improve with more time](#what-i-would-improve-with-more-time)
 - [Things that I would like to share](#things-that-i-would-like-to-share)
 - [AWS downtime and thoughts on it](#aws-downtime-and-thoughts-on-it)
@@ -132,6 +133,31 @@ Steps:
   10 minutes if the stack doesn't exist or big changes are made).
 - Look around in the AWS console...
 - Run `just destroy` command to destroy the dev stack "ReonicDevOpsStackDev".
+
+## Questions you may be interested in
+
+Q: How can the Lambda Function deployed inside a private subnet acquire secrets
+managed by Secrets Manager which is outside the VPC?
+
+A: Firstly we should assign an IAM role with the "secretsmanager:GetSecretValue"
+permission, and this is granted by `secret.grantRead(lambdaFunction);` in
+[lambda.ts](./cdk/lib/lambda.ts). Secondly, we need to add a VPC
+Interface Endpoint, so that the network traffic only happens inside the VPC from
+the perspective of the Lambda Function. See `vpc.addInterfaceEndpoint(...` in [vpc.ts](./cdk/lib/vpc.ts).
+
+Q: What's the safety mechanism to ensure the RDS instance can only be accessed
+by the Lambda Function?
+
+A: By default the RDS is totally inaccessible because of the Security Group
+(auto created together with RDS) doesn't allow any traffic. And the RDS instance
+is deployed in private subnets - another layer of security. To let the Lambda
+Function send requests to the RDS instance, we need to allow the RDS SG to
+accept inbound traffic from the Lambda SG. See the following line in
+[lambda.ts](./cdk/lib/lambda.ts):
+
+```typescript
+db.connections.allowDefaultPortFrom(lambdaSG);
+```
 
 ## What I would improve with more time
 
