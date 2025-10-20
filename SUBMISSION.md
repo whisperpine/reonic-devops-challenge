@@ -132,6 +132,14 @@ nice-to-have, big or small (unordered):
   Differences: they have different AWS Tags; when triggering CI workflows, the
   have different input values.
 
+- GitHub Environment is corresponding to the Stack environment.
+  The GitHub Environment `infra-dev` matches `ReonicDevOpsStackDev` stack,
+  while `infra-prod` matches `ReonicDevOpsStackProd` stack. It's useful in CI,
+  because different GitHub Environments can have different values of the
+  Variables and Secrets used in CI pipelines. We can harness this mechanism
+  to make certain parameters differ in "dev" and "prod" environments
+  (e.g. The instance type of RDS).
+
 - Dev environment wrapped together with source code.
   This ensures dev environment consistency across developers and everything
   still working when we getting back to it after a long time not touching it.
