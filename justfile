@@ -28,7 +28,7 @@ synth:
 
 # [cdk] deploy cloudformation stack
 deploy:
-  cd cdk && cdk deploy ReonicDevOpsStackDev
+  cd cdk && cdk deploy --require-approval never ReonicDevOpsStackDev
 
 # [cdk] destroy cloudformation stack
 destroy:
@@ -37,3 +37,11 @@ destroy:
 # [cdk] bootstrap cdk
 bootstrap:
   cd cdk && cdk bootstrap
+
+# --------------------
+# test
+# --------------------
+
+# [test] run testing scripts for local deployment
+test:
+  sh ./scripts/test-local.sh
