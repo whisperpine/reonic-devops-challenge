@@ -35,7 +35,7 @@ interface TagFilterProperty {
  * @returns The value which can be assigned to tagFilters in a `CfnGroup`.
  */
 export function getTagFilters(tags: Tags): TagFilterProperty[] {
-  let result: TagFilterProperty[] = [];
+  const result: TagFilterProperty[] = [];
   for (const key in tags) {
     result.push({ key, values: [tags[key]] });
   }

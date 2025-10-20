@@ -1,10 +1,10 @@
-import { CfnOutput, Duration } from "aws-cdk-lib";
+import { Duration } from "aws-cdk-lib";
 import { DockerImageCode, DockerImageFunction } from "aws-cdk-lib/aws-lambda";
-import { IRepository, Repository } from "aws-cdk-lib/aws-ecr";
-import { DatabaseInstance } from "aws-cdk-lib/aws-rds";
-import { Secret } from "aws-cdk-lib/aws-secretsmanager";
-import { Construct } from "constructs";
-import { ISubnet, SecurityGroup, Vpc } from "aws-cdk-lib/aws-ec2";
+import { type IRepository, Repository } from "aws-cdk-lib/aws-ecr";
+import type { DatabaseInstance } from "aws-cdk-lib/aws-rds";
+import type { Secret } from "aws-cdk-lib/aws-secretsmanager";
+import type { Construct } from "constructs";
+import { type ISubnet, SecurityGroup, type Vpc } from "aws-cdk-lib/aws-ec2";
 
 import { SUBNET_APP } from "./vpc";
 

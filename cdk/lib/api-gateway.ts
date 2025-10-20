@@ -1,6 +1,6 @@
 import { CfnOutput } from "aws-cdk-lib";
-import { DockerImageFunction } from "aws-cdk-lib/aws-lambda";
-import { Construct } from "constructs";
+import type { DockerImageFunction } from "aws-cdk-lib/aws-lambda";
+import type { Construct } from "constructs";
 import { Cors, LambdaRestApi } from "aws-cdk-lib/aws-apigateway";
 
 /**

@@ -1,11 +1,10 @@
 // Import third party modules.
-import * as cdk from "aws-cdk-lib";
-import { Stack } from "aws-cdk-lib";
-import { Construct } from "constructs";
-import { DockerImageFunction } from "aws-cdk-lib/aws-lambda";
-import { Vpc } from "aws-cdk-lib/aws-ec2";
-import { Secret } from "aws-cdk-lib/aws-secretsmanager";
-import { DatabaseInstance } from "aws-cdk-lib/aws-rds";
+import { Stack, type StackProps } from "aws-cdk-lib";
+import type { Construct } from "constructs";
+import type { DockerImageFunction } from "aws-cdk-lib/aws-lambda";
+import type { Vpc } from "aws-cdk-lib/aws-ec2";
+import type { Secret } from "aws-cdk-lib/aws-secretsmanager";
+import type { DatabaseInstance } from "aws-cdk-lib/aws-rds";
 
 // Import local modules in this repository.
 import { defaultTags, ENVIRONMENTS } from "./tags";
@@ -18,7 +17,7 @@ import CreateVpc from "./vpc";
 
 /** The entrypoint for setting up an AWS Cloudformation Stack. */
 export class InfraStack extends Stack {
-  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+  constructor(scope: Construct, id: string, props?: StackProps) {
     // Merged tags.
     const mergedTags: {
       [x: string]: string;
@@ -28,7 +27,7 @@ export class InfraStack extends Stack {
     };
 
     // Make sure the "environment" tag is a valid value.
-    const env: string = mergedTags["environment"];
+    const env: string = mergedTags.environment;
     if (!ENVIRONMENTS.includes(env)) {
       throw new Error(
         `Invalid tag "environment" of value: ${env}.\n` +

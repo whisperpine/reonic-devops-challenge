@@ -1,4 +1,4 @@
-import { Construct } from "constructs";
+import type { Construct } from "constructs";
 import { Secret } from "aws-cdk-lib/aws-secretsmanager";
 import { DB_NAME, DB_USERNAME } from "./rds";
 

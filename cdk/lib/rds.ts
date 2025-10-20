@@ -1,11 +1,11 @@
-import { Construct } from "constructs";
-import { Secret } from "aws-cdk-lib/aws-secretsmanager";
+import type { Construct } from "constructs";
+import type { Secret } from "aws-cdk-lib/aws-secretsmanager";
 import {
   InstanceClass,
   InstanceSize,
   InstanceType,
-  ISubnet,
-  Vpc,
+  type ISubnet,
+  type Vpc,
 } from "aws-cdk-lib/aws-ec2";
 import {
   Credentials,

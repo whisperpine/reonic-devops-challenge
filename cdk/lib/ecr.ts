@@ -1,6 +1,6 @@
 import { RemovalPolicy } from "aws-cdk-lib";
 import { CfnOutput } from "aws-cdk-lib";
-import { Construct } from "constructs";
+import type { Construct } from "constructs";
 import { Repository } from "aws-cdk-lib/aws-ecr";
 
 /**
