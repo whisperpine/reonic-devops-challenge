@@ -6,6 +6,49 @@ I've accomplished all the objectives in README.md with good practices.
 
 Let's cut to the chase - Here's my solution.
 
+## What you would improve with more time
+
+- Make changes via Pull Requests rather than pushing directly to the main branch.
+
+- Version management: This is a monorepo (with app and infra in the same
+  repository), and the version (including git tag, github release, container
+  image tag, versions in `package.json` files) should be managed *separately* by
+  splitting app version and infra version. Currently the github release version
+  means the infra version, which should be improved as mentioned above.
+
+- Network ACL. Currently the Network ACLs are the default ones created together
+  with VPC and subnets. According to the Least Privilege Principle, we'd better
+  add more restrictions on it. It's a subnet level network control, an additional
+  layer of security other than Security Groups (which are at VM level).
+
+- Preview infra changes before apply. Currently the modification of AWS infra
+  happens in one command (e.g. `cdk deploy xxx`) locally or in CI, that's
+  dangerous! When I used Terraform to manage cloud infra in other projects, I
+  always preview the diff by `terraform plan` and only apply the changes when the
+  diff has been proofread by stakeholders in another step. I believe there's a
+  similar mechanism in CDK, which I'll sort it out with more time.
+
+- API Gateway path configurations.
+  Currently all requests sent to the API Gateway are handled by the single
+  Lambda Function `app`. However, in real world, multiple backend applications
+  could share the same API Gateway (microservice architecture). The actual
+  handler of a request should be configured in API Gateway by rules like URL
+  paths.
+
+- ECR image lifecycle rules.
+  Currently all the images pushed to the ECR repository stays forever until
+  cleaned up manually, which increases cloud cost. A simple lifecycle rule
+  could be something like: clear all git-sha-tagged images older than 7 days,
+  and always keep the semver-tagged images as well as the "latest" tag.
+
+- IAM user permission. Currently the IAM user used to push container images in
+  CI is the same IAM user used to run CDK deployment. This violates the Least
+  Privilege Princile. A proper approach is to create a dedicated IAM user only
+  with the permission to push and pull images to the specified ECR repository.
+
+- Use a specific container image tag instead of "latest".
+  Currently the Lambda Function is using the "latest" tag of the container
+  image, which is not a good practice. We'd better use a semver-tagged image.
 
 ## "Boasting Time"
 
