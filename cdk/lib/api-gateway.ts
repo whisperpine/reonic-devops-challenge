@@ -1,3 +1,4 @@
+import { CfnOutput } from "aws-cdk-lib";
 import { DockerImageFunction } from "aws-cdk-lib/aws-lambda";
 import { Construct } from "constructs";
 import { Cors, LambdaRestApi } from "aws-cdk-lib/aws-apigateway";
@@ -12,11 +13,19 @@ export default function CreateAPIGateway(
   scope: Construct,
   lambdaFunction: DockerImageFunction,
 ): LambdaRestApi {
-  return new LambdaRestApi(scope, "ReonicApiGateway", {
+  const api = new LambdaRestApi(scope, "ReonicApiGateway", {
     handler: lambdaFunction,
     defaultCorsPreflightOptions: {
       allowOrigins: Cors.ALL_ORIGINS,
       allowMethods: Cors.ALL_METHODS,
     },
   });
+
+  // Output the API Gateway's URL.
+  new CfnOutput(scope, "ApiGatewayURL", {
+    value: api.url,
+    description: "The API Gateway's URL. Click it for end-to-end test!",
+  });
+
+  return api;
 }
