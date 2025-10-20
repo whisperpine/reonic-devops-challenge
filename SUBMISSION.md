@@ -38,7 +38,7 @@ gantt
         v0.2.0      :a2, after a1, 18h
         v0.2.1      :a21, after a2, 6h
         v0.3.0      :a3, after a21, 1d
-    section Unreleased
+        v0.4.0      :a4, after a3, 1d
         Unreleased  :2025-10-22
 ```
 
@@ -66,7 +66,7 @@ Pre stage:
   VPC, Lambda, API Gateway, Secrets Manager, RDS.
 - Make it work end-to-end for the first time.
 
-Unreleased:
+[v0.4.0](https://github.com/whisperpine/reonic-devops-challenge/releases/tag/v0.4.0):
 
 - Write this document [SUBMISSION.md](./SUBMISSION.md).
 
