@@ -3,7 +3,7 @@ import { Secret } from "aws-cdk-lib/aws-secretsmanager";
 import { DB_NAME, DB_USERNAME } from "./rds";
 
 /**
- * Create an AWS Secrets Manager.
+ * Create an AWS Secret managed by Secrets Manager
  * @param scope Pass "this" in the constructor of InfraStack.
  * @returns The created secret.
  */
@@ -19,7 +19,7 @@ export default function CreateSecret(scope: Construct): Secret {
         username: DB_USERNAME, // used for RDS instance creation
       }),
       generateStringKey: "password",
-      excludePunctuation: true, // Punctuations will cause "password authentication failed" error
+      excludePunctuation: true, // punctuations will cause "password authentication failed" error
       passwordLength: 32,
     },
   });

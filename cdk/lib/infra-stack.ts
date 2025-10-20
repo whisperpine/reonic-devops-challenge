@@ -45,7 +45,7 @@ export class InfraStack extends Stack {
     // Create an AWS VPC and relevant resources.
     const vpc: Vpc = CreateVpc(this);
 
-    // Create an AWS Secrets Manager.
+    // Create an AWS Secret managed by Secrets Manager.
     const secret: Secret = CreateSecret(this);
 
     // Create an AWS RDS Postgres instance.
