@@ -15,9 +15,7 @@ export function CreateDashboard(
   api: LambdaRestApi,
 ): void {
   // Create Dashboard.
-  const dashboard = new Dashboard(scope, "ReonicDashboard", {
-    dashboardName: "ReonicDashboard",
-  });
+  const dashboard = new Dashboard(scope, "ReonicDashboard");
 
   // Lambda Function Metrics.
   dashboard.addWidgets(
