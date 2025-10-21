@@ -88,11 +88,9 @@ export default function CreateLambda(
  * Create an AWS Cloudwatch Log Group for API Gateway.
  * @returns The created AWS Cloudwatch Log Group.
  */
-function CreateCloudwatchLogGroup(
-  scope: Construct,
-): LogGroup {
+function CreateCloudwatchLogGroup(scope: Construct): LogGroup {
   return new LogGroup(scope, "ReonicLambdaLogGroup", {
-    logGroupName: "/aws/lambda/ReonicLambdaLogGroup",
+    // logGroupName: "/aws/lambda/ReonicLambdaLogGroup",
     retention: RetentionDays.ONE_WEEK,
     removalPolicy: RemovalPolicy.DESTROY,
   });

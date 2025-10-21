@@ -69,7 +69,7 @@ function CreateCloudwatchLogGroup(
 ): LogGroup {
   // Log Group.
   const apiLogGroup = new LogGroup(scope, "ReonicApiGatewayLogGroup", {
-    logGroupName: "/aws/apigateway/ReonicApiGatewayLogGroup",
+    // logGroupName: "/aws/apigateway/ReonicApiGatewayLogGroup",
     retention: RetentionDays.ONE_WEEK,
     removalPolicy: RemovalPolicy.DESTROY,
   });
