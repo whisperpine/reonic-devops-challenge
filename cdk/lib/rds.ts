@@ -1,5 +1,6 @@
 import type { Construct } from "constructs";
 import type { Secret } from "aws-cdk-lib/aws-secretsmanager";
+import { RemovalPolicy } from "aws-cdk-lib";
 import { RetentionDays } from "aws-cdk-lib/aws-logs";
 import {
   InstanceClass,
@@ -16,6 +17,7 @@ import {
 } from "aws-cdk-lib/aws-rds";
 
 import { SUBNET_DB } from "./vpc";
+import { ENVIRONMENT_PROD } from "./tags";
 
 // todo:
 // multi-region, standby instance for failover
@@ -25,12 +27,14 @@ import { SUBNET_DB } from "./vpc";
  * @param scope Pass "this" in the constructor of InfraStack.
  * @param vpc The AWS VPC that this Lambda Function will be attached to.
  * @param secret The secret created by Secrets Manager.
+ * @param env The value of the tag "environment".
  * @returns The created AWS RDS Postgres instance.
  */
 export default function CreateRds(
   scope: Construct,
   vpc: Vpc,
   secret: Secret,
+  env: string,
 ): DatabaseInstance {
   // Filter out the subnets dedicated for RDS instances.
   const selectedSubnets: ISubnet[] = vpc.isolatedSubnets.filter((
@@ -58,8 +62,9 @@ export default function CreateRds(
     cloudwatchLogsRetention: RetentionDays.ONE_MONTH,
   });
 
-  // // Create an AWS Cloudwatch Log Groups for the RDS instance.
-  // CreateCloudwatchLogGroup(scope, db);
+  if (env === ENVIRONMENT_PROD) {
+    db.applyRemovalPolicy(RemovalPolicy.RETAIN);
+  }
 
   return db;
 }

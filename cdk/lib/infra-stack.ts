@@ -50,7 +50,7 @@ export class InfraStack extends Stack {
     const secret: Secret = CreateSecret(this);
 
     // Create an AWS RDS Postgres instance.
-    const db: DatabaseInstance = CreateRds(this, vpc, secret);
+    const db: DatabaseInstance = CreateRds(this, vpc, secret, env);
 
     // Create an AWS Lambda Function.
     const lambda: DockerImageFunction = CreateLambda(this, vpc, secret, db);
