@@ -5,9 +5,11 @@ import type { DockerImageFunction } from "aws-cdk-lib/aws-lambda";
 import type { Vpc } from "aws-cdk-lib/aws-ec2";
 import type { Secret } from "aws-cdk-lib/aws-secretsmanager";
 import type { DatabaseInstance } from "aws-cdk-lib/aws-rds";
+import { LambdaRestApi } from "aws-cdk-lib/aws-apigateway";
 
 // Import local modules in this repository.
 import { defaultTags, ENVIRONMENTS } from "./tags";
+import { CreateDashboard } from "./cloudwatch";
 import CreateResourceGroup from "./resource-group";
 import CreateLambda from "./lambda";
 import CreateAPIGateway from "./api-gateway";
@@ -54,6 +56,9 @@ export class InfraStack extends Stack {
     const lambda: DockerImageFunction = CreateLambda(this, vpc, secret, db);
 
     // Create an AWS API Gateway.
-    CreateAPIGateway(this, lambda);
+    const api: LambdaRestApi = CreateAPIGateway(this, lambda);
+
+    // Create a Cloudwatch Dashboard.
+    CreateDashboard(this, lambda, api);
   }
 }
