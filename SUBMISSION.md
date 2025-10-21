@@ -45,7 +45,7 @@ gantt
 Pre stage:
 
 - Read the document to get an overview of what to implement.
-- Do system design by hand writing and drawing, discuss certain parts with LLM.
+- Do system design by hand writing and drawing, discuss certain parts with LLMs.
 - Familiarize myself with AWS CDK (as it's the first time for me to use it).
 
 [v0.1.0](https://github.com/whisperpine/reonic-devops-challenge/releases/tag/v0.1.0):
@@ -73,7 +73,7 @@ Pre stage:
 [v0.5.0](https://github.com/whisperpine/reonic-devops-challenge/releases/tag/v0.5.0):
 
 - Create Cloudwatch LogGroups, Alarms and a Dashboard.
-- Set "RemovalPolicy.RETAIN" for RDS in prod environment.
+- Set "RemovalPolicy.SNAPSHOT" for RDS in prod environment.
 
 ## Assumptions and trade-offs I made
 
@@ -88,16 +88,21 @@ Trade-offs:
 - `cdk-reonic-devops-challenge` is the IAM user who has permission to run CDK.
   It's the *only* AWS resource created manually - other AWS resources are all
   managed by CDK. This trade-off is about exceptions of a fully-automated setup.
-
+- `RemovalPolicy.RETAIN` is great for RDS instance in production environment.
+  But when we try to destroy the stack, the retained RDS instance will prevent
+  the related resources (e.g. subnet, security group) from being deleted, which
+  leads to the failure of stack destroy. To make sure that the prod stack can be
+  destroyed successfully, I choose to use `RemovalPolicy.SNAPSHOT`, which still
+  keeps all the data while elimitating the drawbacks of stack destroy failure.
+  
 ## How to use the solution and test it
 
 ### How to test it
 
 For end-to-end test, just open the URL of the API Gateway (either in a browser
 or by `curl` command). For satefy reasons (though it's publicly accessible), I
-choose to not include the URL directly in this document. Thus you can find the
-URL in the AWS Console (I assume you have the permission to access the AWS
-Console):
+choose to not include the URL directly in this document. With that said, you can
+find the URL in the AWS Console (I assume you could access the AWS Console):
 
 ![aws-console-end-to-end-test](./assets/aws-console-end-to-end-test.webp)
 
@@ -112,41 +117,41 @@ Console):
 You need to be a github collaborator of this repository to have permissions to
 manually trigger the CI/CD pipelines via `workflow_dispatch`. I've already sent
 an invitation to Hans (@hanshuebner). Please let me know if there's a permission
-issue run trigger CI pipelines (by opening an GitHub Issue or sending me an email).
+issue in triggering CI pipelines (by opening a GitHub Issue or sending me an email).
 
 Assume that Hans has the permission, follow these steps to deploy the cloud infra:
 
 ![github-actions-deploy-infra](./assets/github-actions-deploy-infra.webp)
 
 > [!NOTE]
-> If you decide to deploy the with the `dev` input value, it just starts directly.
-> But if you decide to deploy the with the `prod` input value, it should be
+> If you decide to deploy the with the `dev` input value, it just works.
+> But if you decide to deploy the with the `prod` input value, it must be
 > *approved* before running (this is for prod environment safety - only someone
 > who has the permission can approve the production level changes):
 
 ![cicd-review-deployment](./assets/cicd-review-deployment.webp)
 
-To destroy the infra, just run the "Destroy Infrastructure" workflow with
-similar steps.
+To destroy the infra, just run the "Destroy Infrastructure" Github Actions
+workflow with similar steps.
 
 ### How to use the solution locally
 
-It's generally recommended to use this solution in CI for simplicity.
-This section is only useful if you want to try it locally.
+It's recommended to [use this solution in CI](#how-to-use-the-solution-in-ci)
+for simplicity. This section is only useful if you'd like to try it locally.
 
 Prerequisites:
 
-- The AWS IAM user with permissions to run CDK, and it's already configured.
-- Make sure that you have locally installed nodejs and [just](https://github.com/casey/just).
+- You have configured The AWS IAM user with permissions to run CDK.
+- You have locally installed nodejs and [just](https://github.com/casey/just).
 
 Steps:
 
 - Clone this repotory and `cd` into the root directory of this repo.
 - Run `just install` command to install npm packages in "node_modules".
 - Run `just deploy` command to deploy the dev stack "ReonicDevOpsStackDev".
-  (This may take less than 1 minute if there's no changes, and may take no more
-  10 minutes if the stack doesn't exist or big changes are made).
-- Look around in the AWS console...
+  (This may take less than 1 minute if there're little changes, and may take
+  less than 10 minutes if the stack doesn't exist or big changes have been made).
+- Look around in the AWS console and [run end-to-end test](#how-to-test-it).
 - Run `just destroy` command to destroy the dev stack "ReonicDevOpsStackDev".
 
 ## Questions you may be interested in
@@ -235,6 +240,13 @@ nice-to-have, big or small (unordered):
   (single stack with modules) suffices so far.
 
 - JSDoc for all exported variables and functions.
+
+- Diagram as Code. The diagram in [The cloud architecture](#the-cloud-architecture)
+  section is created by python code with the help of the [diagrams](https://github.com/mingrammer/diagrams)
+  package (the source code is in [./diagrams/diagram.py](./diagrams/diagram.py)).
+  This is an amazing way to illustrate designs especially for AWS architecture.
+  Because the single source of truth is code, which can be version controlled
+  and collaborated with team members.
 
 - AWS Tags and Resource Group.
   All cloud resources deployed by this repository are all tagged, and
