@@ -87,10 +87,11 @@ Trade-offs:
 
 ### How to test it
 
-For end-to-end test, just open the URL of API Gateway (either in a browser or by
-`curl` command). For satefy reasons (though it's public accessible), I choose to
-not include the URL directly in this document. Thus you can find the URL in the
-AWS Console (I assume you have the permission to access the AWS Console):
+For end-to-end test, just open the URL of the API Gateway (either in a browser
+or by `curl` command). For satefy reasons (though it's publicly accessible), I
+choose to not include the URL directly in this document. Thus you can find the
+URL in the AWS Console (I assume you have the permission to access the AWS
+Console):
 
 ![aws-console-end-to-end-test](./assets/aws-console-end-to-end-test.webp)
 
@@ -110,6 +111,14 @@ issue run trigger CI pipelines (by opening an GitHub Issue or sending me an emai
 Assume that Hans has the permission, follow these steps to deploy the cloud infra:
 
 ![github-actions-deploy-infra](./assets/github-actions-deploy-infra.webp)
+
+> [!NOTE]
+> If you decide to deploy the with the `dev` input value, it just starts directly.
+> But if you decide to deploy the with the `prod` input value, it should be
+> *approved* before running (this is for prod environment safety - only someone
+> who has the permission can approve the prodduction level changes):
+
+![cicd-review-deployment](./assets/cicd-review-deployment.webp)
 
 To destroy the infra, just run the "Destroy Infrastructure" workflow with
 similar steps.
@@ -245,7 +254,8 @@ nice-to-have, big or small (unordered):
   because different GitHub Environments can have different values of the
   Variables and Secrets used in CI pipelines. We can harness this mechanism
   to make certain parameters differ in "dev" and "prod" environments
-  (e.g. the instance type of RDS).
+  (e.g. use cheaper instance type of RDS in dev, only enable "Deletion
+  protection" for RDS in prod).
 
 - Dev environment wrapped together with source code.
   This ensures dev environment consistency across developers and everything
