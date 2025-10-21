@@ -63,7 +63,7 @@ export default function CreateRds(
   });
 
   if (env === ENVIRONMENT_PROD) {
-    db.applyRemovalPolicy(RemovalPolicy.RETAIN);
+    db.applyRemovalPolicy(RemovalPolicy.SNAPSHOT);
   }
 
   return db;
