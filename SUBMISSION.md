@@ -39,7 +39,7 @@ gantt
         v0.2.1      :a21, after a2, 6h
         v0.3.0      :a3, after a21, 1d
         v0.4.0      :a4, after a3, 1d
-        v0.5.0      :a5, after a4, 1d
+        v0.5.0      :a5, after a4, 20h
 ```
 
 Pre stage:
@@ -222,6 +222,9 @@ db.connections.allowDefaultPortFrom(lambdaSG);
 - Use a specific container image tag instead of "latest".
   Currently the Lambda Function is using the "latest" tag of the container
   image, which is not a good practice. We'd better use a semver-tagged image.
+
+- Write integration tests for end-to-end testing and observe the behaviour of
+  the whole system in edge cases and high load sennarios.
 
 - Use [trivy](https://github.com/aquasecurity/trivy) to scan vulnerabilities in
   container images and node package dependencies.
