@@ -1,4 +1,6 @@
-import { CfnOutput } from "aws-cdk-lib";
+import { CfnOutput, RemovalPolicy } from "aws-cdk-lib";
+import { ManagedPolicy, Role, ServicePrincipal } from "aws-cdk-lib/aws-iam";
+import { LogGroup, RetentionDays } from "aws-cdk-lib/aws-logs";
 import type { DockerImageFunction } from "aws-cdk-lib/aws-lambda";
 import type { Construct } from "constructs";
 import {
@@ -8,9 +10,6 @@ import {
   LogGroupLogDestination,
   MethodLoggingLevel,
 } from "aws-cdk-lib/aws-apigateway";
-import { LogGroup } from "aws-cdk-lib/aws-logs";
-
-import CreateCloudwatchLogGroup from "./cloudwatch";
 
 /**
  * Create an AWS API Gateway.
@@ -23,10 +22,7 @@ export default function CreateAPIGateway(
   lambdaFunction: DockerImageFunction,
 ): LambdaRestApi {
   // Create an AWS Cloudwatch Log Group.
-  const logGroup: LogGroup = CreateCloudwatchLogGroup(
-    scope,
-    "ReonicApiGatewayLogGroup",
-  );
+  const logGroup: LogGroup = CreateCloudwatchLogGroup(scope);
 
   // Create an AWS API Gateway.
   const api = new LambdaRestApi(scope, "ReonicApiGateway", {
@@ -62,4 +58,32 @@ export default function CreateAPIGateway(
   });
 
   return api;
+}
+
+/**
+ * Create an AWS Cloudwatch Log Group for API Gateway.
+ * @returns The created AWS Cloudwatch Log Group.
+ */
+function CreateCloudwatchLogGroup(
+  scope: Construct,
+): LogGroup {
+  // Log Group.
+  const apiLogGroup = new LogGroup(scope, "ReonicApiGatewayLogGroup", {
+    logGroupName: "/aws/apigateway/ReonicApiGatewayLogGroup",
+    retention: RetentionDays.ONE_WEEK,
+    removalPolicy: RemovalPolicy.DESTROY,
+  });
+
+  // IAM Role for API Gateway to write logs
+  const apiLogRole = new Role(scope, "ReonicApiGatewayCloudWatchRole", {
+    assumedBy: new ServicePrincipal("apigateway.amazonaws.com"),
+  });
+
+  apiLogRole.addManagedPolicy(
+    ManagedPolicy.fromAwsManagedPolicyName(
+      "service-role/AmazonAPIGatewayPushToCloudWatchLogs",
+    ),
+  );
+
+  return apiLogGroup;
 }
