@@ -81,6 +81,7 @@ Assumptions:
 
 - There's an existing ECR repository (the one managed by `CDKToolkit` stack).
 - All requests sent to the API Gateway will be handled by the Lambda Function `app`.
+- The API Gateway allows requests without restrictions (e.g. CORS).
 
 Trade-offs:
 
