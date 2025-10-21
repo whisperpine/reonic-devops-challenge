@@ -2,7 +2,7 @@
 
 It's an engaging challenge that I enjoyed tackling!
 
-I've accomplished all the objectives in README.md with good practices.
+I've accomplished all the objectives and bonus in README.md with good practices.
 
 Let's cut to the chase - Here's my solution.
 
@@ -39,7 +39,7 @@ gantt
         v0.2.1      :a21, after a2, 6h
         v0.3.0      :a3, after a21, 1d
         v0.4.0      :a4, after a3, 1d
-        Unreleased  :2025-10-22
+        v0.5.0      :a5, after a4, 1d
 ```
 
 Pre stage:
@@ -69,6 +69,11 @@ Pre stage:
 [v0.4.0](https://github.com/whisperpine/reonic-devops-challenge/releases/tag/v0.4.0):
 
 - Write this document [SUBMISSION.md](./SUBMISSION.md).
+
+[v0.5.0](https://github.com/whisperpine/reonic-devops-challenge/releases/tag/v0.5.0):
+
+- Create Cloudwatch LogGroups, Alarms and a Dashboard.
+- Set "RemovalPolicy.RETAIN" for RDS in prod environment.
 
 ## Assumptions and trade-offs I made
 
@@ -116,7 +121,7 @@ Assume that Hans has the permission, follow these steps to deploy the cloud infr
 > If you decide to deploy the with the `dev` input value, it just starts directly.
 > But if you decide to deploy the with the `prod` input value, it should be
 > *approved* before running (this is for prod environment safety - only someone
-> who has the permission can approve the prodduction level changes):
+> who has the permission can approve the production level changes):
 
 ![cicd-review-deployment](./assets/cicd-review-deployment.webp)
 
