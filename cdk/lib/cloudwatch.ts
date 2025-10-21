@@ -1,14 +1,7 @@
 import type { DockerImageFunction } from "aws-cdk-lib/aws-lambda";
 import type { LambdaRestApi } from "aws-cdk-lib/aws-apigateway";
 import type { Construct } from "constructs";
-
-import {
-  Alarm,
-  ComparisonOperator,
-  Dashboard,
-  GraphWidget,
-  TreatMissingData,
-} from "aws-cdk-lib/aws-cloudwatch";
+import { Dashboard, GraphWidget } from "aws-cdk-lib/aws-cloudwatch";
 
 /**
  * Create a Cloudwatch Dashboard.

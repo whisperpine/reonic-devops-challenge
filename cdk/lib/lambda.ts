@@ -6,6 +6,11 @@ import type { DatabaseInstance } from "aws-cdk-lib/aws-rds";
 import type { Secret } from "aws-cdk-lib/aws-secretsmanager";
 import type { Construct } from "constructs";
 import { type ISubnet, SecurityGroup, type Vpc } from "aws-cdk-lib/aws-ec2";
+import {
+  Alarm,
+  ComparisonOperator,
+  TreatMissingData,
+} from "aws-cdk-lib/aws-cloudwatch";
 
 import { SUBNET_APP } from "./vpc";
 
@@ -62,6 +67,8 @@ export default function CreateLambda(
   // on this specific secret, granting the lambda function to read.
   secret.grantRead(lambdaFunction);
 
+  CreateAlarms(scope, lambdaFunction);
+
   // // Output the Lambda Function's name.
   // new CfnOutput(scope, "LambdaFunctionName", {
   //   value: lambdaFunction.functionName,
@@ -88,5 +95,34 @@ function CreateCloudwatchLogGroup(
     logGroupName: "/aws/lambda/ReonicLambdaLogGroup",
     retention: RetentionDays.ONE_WEEK,
     removalPolicy: RemovalPolicy.DESTROY,
+  });
+}
+
+/** Create Cloudwatch Alarms for the Lambda Function. */
+function CreateAlarms(
+  scope: Construct,
+  lambdaFunction: DockerImageFunction,
+): void {
+  // Duration Alarm.
+  new Alarm(scope, "LambdaHighDurationAlarm", {
+    metric: lambdaFunction.metricDuration(),
+    threshold: 1000, // in milliseconds
+    evaluationPeriods: 2,
+    treatMissingData: TreatMissingData.NOT_BREACHING,
+  });
+  // Error Rate Alarm.
+  new Alarm(scope, "LambdaErrorRateAlarm", {
+    metric: lambdaFunction.metricErrors(),
+    threshold: 1,
+    evaluationPeriods: 2,
+    comparisonOperator: ComparisonOperator.GREATER_THAN_THRESHOLD,
+    treatMissingData: TreatMissingData.NOT_BREACHING,
+  });
+  // Too Many Invocation Alarm.
+  new Alarm(scope, "LambdaHighInvocationAlarm", {
+    metric: lambdaFunction.metricInvocations(),
+    threshold: 100, // 100 invocations per minute
+    evaluationPeriods: 2,
+    treatMissingData: TreatMissingData.NOT_BREACHING,
   });
 }

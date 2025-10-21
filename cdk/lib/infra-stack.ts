@@ -5,7 +5,7 @@ import type { DockerImageFunction } from "aws-cdk-lib/aws-lambda";
 import type { Vpc } from "aws-cdk-lib/aws-ec2";
 import type { Secret } from "aws-cdk-lib/aws-secretsmanager";
 import type { DatabaseInstance } from "aws-cdk-lib/aws-rds";
-import { LambdaRestApi } from "aws-cdk-lib/aws-apigateway";
+import type { LambdaRestApi } from "aws-cdk-lib/aws-apigateway";
 
 // Import local modules in this repository.
 import { defaultTags, ENVIRONMENTS } from "./tags";
