@@ -1,5 +1,6 @@
 import type { Construct } from "constructs";
 import type { Secret } from "aws-cdk-lib/aws-secretsmanager";
+import { RetentionDays } from "aws-cdk-lib/aws-logs";
 import {
   InstanceClass,
   InstanceSize,
@@ -53,7 +54,12 @@ export default function CreateRds(
       InstanceClass.T3,
       InstanceSize.MICRO,
     ),
+    cloudwatchLogsExports: ["postgresql", "upgrade", "iam-db-auth-error"], // enable log exports
+    cloudwatchLogsRetention: RetentionDays.ONE_MONTH,
   });
+
+  // // Create an AWS Cloudwatch Log Groups for the RDS instance.
+  // CreateCloudwatchLogGroup(scope, db);
 
   return db;
 }
