@@ -1,4 +1,5 @@
-import { Duration } from "aws-cdk-lib";
+import { Duration, RemovalPolicy } from "aws-cdk-lib";
+import { LogGroup, RetentionDays } from "aws-cdk-lib/aws-logs";
 import { DockerImageCode, DockerImageFunction } from "aws-cdk-lib/aws-lambda";
 import { type IRepository, Repository } from "aws-cdk-lib/aws-ecr";
 import type { DatabaseInstance } from "aws-cdk-lib/aws-rds";
@@ -54,6 +55,7 @@ export default function CreateLambda(
     vpc,
     vpcSubnets: { subnets: selectedSubnets },
     securityGroups: [lambdaSG],
+    logGroup: CreateCloudwatchLogGroup(scope),
   });
 
   // Automatically attaches a policy "secretsmanager:GetSecretValue"
@@ -73,4 +75,18 @@ export default function CreateLambda(
   // });
 
   return lambdaFunction;
+}
+
+/**
+ * Create an AWS Cloudwatch Log Group for API Gateway.
+ * @returns The created AWS Cloudwatch Log Group.
+ */
+function CreateCloudwatchLogGroup(
+  scope: Construct,
+): LogGroup {
+  return new LogGroup(scope, "ReonicLambdaLogGroup", {
+    logGroupName: "/aws/lambda/ReonicLambdaLogGroup",
+    retention: RetentionDays.ONE_WEEK,
+    removalPolicy: RemovalPolicy.DESTROY,
+  });
 }
