@@ -246,7 +246,7 @@ nice-to-have, big or small (unordered):
 
 - Diagram as Code. The diagram in [The cloud architecture](#the-cloud-architecture)
   section is created by python code with the help of the [diagrams](https://github.com/mingrammer/diagrams)
-  package (the source code is in [./diagrams/diagram.py](./diagrams/diagram.py)).
+  package (the source code is in [./diagrams/main.py](./diagrams/main.py)).
   This is an amazing way to illustrate designs especially for AWS architecture.
   Because the single source of truth is code, which can be version controlled
   and collaborated with team members.
