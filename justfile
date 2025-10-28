@@ -2,7 +2,8 @@
 # npm
 # --------------------
 
-# [npm] install npm packages
+# install npm packages
+[group("npm")]
 install:
   npm install && cd app && npm install && cd ../cdk && npm install
 
@@ -10,11 +11,13 @@ install:
 # docker
 # --------------------
 
-# [docker] docker compose up --build -d
+# docker compose up --build -d
+[group("docker")]
 up:
   docker compose up --build -d
 
-# [docker] docker compose down
+# docker compose down
+[group("docker")]
 down:
   docker compose down
 
@@ -22,19 +25,23 @@ down:
 # cdk
 # --------------------
 
-# [cdk] synthesize cloudformation templates
+# synthesize cloudformation templates
+[group("cdk")]
 synth:
   cd cdk && cdk synth ReonicDevOpsStackDev
 
-# [cdk] deploy cloudformation stack
+# deploy cloudformation stack
+[group("cdk")]
 deploy:
   cd cdk && cdk deploy --require-approval never ReonicDevOpsStackDev
 
-# [cdk] destroy cloudformation stack
+# destroy cloudformation stack
+[group("cdk")]
 destroy:
   cd cdk && cdk destroy ReonicDevOpsStackDev
 
-# [cdk] bootstrap cdk
+# bootstrap cdk
+[group("cdk")]
 bootstrap:
   cd cdk && cdk bootstrap
 
@@ -42,6 +49,7 @@ bootstrap:
 # test
 # --------------------
 
-# [test] run testing scripts for local deployment
+# run testing scripts for local deployment
+[group("test")]
 test:
   sh ./scripts/test-local.sh
