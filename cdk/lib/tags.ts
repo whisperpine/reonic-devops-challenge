@@ -1,8 +1,8 @@
-/** The value for the key "repository" */
+/** The value for the key "repository". */
 const REPOSITORY = "reonic-devops-challenge";
-/** The value for the key "managed-by" */
+/** The value for the key "managed-by". */
 const MANAGED_BY = "cdk";
-/** The value for the key "owner" */
+/** The value for the key "owner". */
 const OWNER = "Yusong Lai";
 /** The value for the key "environment", in dev. */
 export const ENVIRONMENT_DEV = "dev";

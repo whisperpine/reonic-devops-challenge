@@ -3,7 +3,7 @@ import { Secret } from "aws-cdk-lib/aws-secretsmanager";
 import { DB_NAME, DB_USERNAME } from "./rds";
 
 /**
- * Create an AWS Secret managed by Secrets Manager
+ * Create an AWS Secret managed by Secrets Manager.
  * @param scope Pass "this" in the constructor of InfraStack.
  * @returns The created secret.
  */
