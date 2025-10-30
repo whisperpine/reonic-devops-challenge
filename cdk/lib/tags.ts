@@ -18,9 +18,9 @@ interface Tags {
 
 /** The default tags for all AWS resources. */
 export const defaultTags: Tags = {
-  "repository": REPOSITORY,
+  repository: REPOSITORY,
   "managed-by": MANAGED_BY,
-  "owner": OWNER,
+  owner: OWNER,
 };
 
 // The same as `CfnGroup.TagFilterProperty`.

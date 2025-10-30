@@ -1,16 +1,16 @@
 import { Duration, RemovalPolicy } from "aws-cdk-lib";
-import { LogGroup, RetentionDays } from "aws-cdk-lib/aws-logs";
-import { DockerImageCode, DockerImageFunction } from "aws-cdk-lib/aws-lambda";
-import { type IRepository, Repository } from "aws-cdk-lib/aws-ecr";
-import type { DatabaseInstance } from "aws-cdk-lib/aws-rds";
-import type { Secret } from "aws-cdk-lib/aws-secretsmanager";
-import type { Construct } from "constructs";
-import { type ISubnet, SecurityGroup, type Vpc } from "aws-cdk-lib/aws-ec2";
 import {
   Alarm,
   ComparisonOperator,
   TreatMissingData,
 } from "aws-cdk-lib/aws-cloudwatch";
+import { type ISubnet, SecurityGroup, type Vpc } from "aws-cdk-lib/aws-ec2";
+import { type IRepository, Repository } from "aws-cdk-lib/aws-ecr";
+import { DockerImageCode, DockerImageFunction } from "aws-cdk-lib/aws-lambda";
+import { LogGroup, RetentionDays } from "aws-cdk-lib/aws-logs";
+import type { DatabaseInstance } from "aws-cdk-lib/aws-rds";
+import type { Secret } from "aws-cdk-lib/aws-secretsmanager";
+import type { Construct } from "constructs";
 
 import { SUBNET_APP } from "./vpc";
 
@@ -44,9 +44,9 @@ export default function CreateLambda(
   db.connections.allowDefaultPortFrom(lambdaSG);
 
   // Filter out the subnets dedicated for applications.
-  const selectedSubnets: ISubnet[] = vpc.isolatedSubnets.filter((
-    subnet: ISubnet,
-  ): boolean => subnet.node.path.includes(SUBNET_APP));
+  const selectedSubnets: ISubnet[] = vpc.isolatedSubnets.filter(
+    (subnet: ISubnet): boolean => subnet.node.path.includes(SUBNET_APP),
+  );
 
   // Create the Lambda function using the container image.
   const lambdaFunction = new DockerImageFunction(scope, "ReonicLambda", {

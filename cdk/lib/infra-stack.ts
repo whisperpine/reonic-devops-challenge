@@ -1,20 +1,17 @@
-// Import third party modules.
 import { Stack, type StackProps } from "aws-cdk-lib";
-import type { Construct } from "constructs";
-import type { DockerImageFunction } from "aws-cdk-lib/aws-lambda";
-import type { Vpc } from "aws-cdk-lib/aws-ec2";
-import type { Secret } from "aws-cdk-lib/aws-secretsmanager";
-import type { DatabaseInstance } from "aws-cdk-lib/aws-rds";
 import type { LambdaRestApi } from "aws-cdk-lib/aws-apigateway";
-
-// Import local modules in this repository.
-import { defaultTags, ENVIRONMENTS } from "./tags";
-import { CreateDashboard } from "./cloudwatch";
-import CreateResourceGroup from "./resource-group";
-import CreateLambda from "./lambda";
+import type { Vpc } from "aws-cdk-lib/aws-ec2";
+import type { DockerImageFunction } from "aws-cdk-lib/aws-lambda";
+import type { DatabaseInstance } from "aws-cdk-lib/aws-rds";
+import type { Secret } from "aws-cdk-lib/aws-secretsmanager";
+import type { Construct } from "constructs";
 import CreateAPIGateway from "./api-gateway";
-import CreateSecret from "./secrets-manager";
+import { CreateDashboard } from "./cloudwatch";
+import CreateLambda from "./lambda";
 import CreateRds from "./rds";
+import CreateResourceGroup from "./resource-group";
+import CreateSecret from "./secrets-manager";
+import { defaultTags, ENVIRONMENTS } from "./tags";
 import CreateVpc from "./vpc";
 
 /** The entrypoint for setting up an AWS Cloudformation Stack. */

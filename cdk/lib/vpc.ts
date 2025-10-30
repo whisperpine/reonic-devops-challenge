@@ -1,9 +1,9 @@
-import type { Construct } from "constructs";
 import {
   InterfaceVpcEndpointAwsService,
   SubnetType,
   Vpc,
 } from "aws-cdk-lib/aws-ec2";
+import type { Construct } from "constructs";
 
 /**
  * Create an AWS VPC and relevant resources.

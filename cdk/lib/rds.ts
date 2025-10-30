@@ -1,7 +1,4 @@
-import type { Construct } from "constructs";
-import type { Secret } from "aws-cdk-lib/aws-secretsmanager";
 import { RemovalPolicy } from "aws-cdk-lib";
-import { RetentionDays } from "aws-cdk-lib/aws-logs";
 import {
   InstanceClass,
   InstanceSize,
@@ -9,15 +6,17 @@ import {
   type ISubnet,
   type Vpc,
 } from "aws-cdk-lib/aws-ec2";
+import { RetentionDays } from "aws-cdk-lib/aws-logs";
 import {
   Credentials,
   DatabaseInstance,
   DatabaseInstanceEngine,
   PostgresEngineVersion,
 } from "aws-cdk-lib/aws-rds";
-
-import { SUBNET_DB } from "./vpc";
+import type { Secret } from "aws-cdk-lib/aws-secretsmanager";
+import type { Construct } from "constructs";
 import { ENVIRONMENT_PROD } from "./tags";
+import { SUBNET_DB } from "./vpc";
 
 // todo:
 // multi-region, standby instance for failover
@@ -37,9 +36,9 @@ export default function CreateRds(
   env: string,
 ): DatabaseInstance {
   // Filter out the subnets dedicated for RDS instances.
-  const selectedSubnets: ISubnet[] = vpc.isolatedSubnets.filter((
-    subnet: ISubnet,
-  ): boolean => subnet.node.path.includes(SUBNET_DB));
+  const selectedSubnets: ISubnet[] = vpc.isolatedSubnets.filter(
+    (subnet: ISubnet): boolean => subnet.node.path.includes(SUBNET_DB),
+  );
 
   // RDS Postgres instance.
   const db = new DatabaseInstance(scope, "ReonicPostgres", {
@@ -54,10 +53,7 @@ export default function CreateRds(
     credentials: Credentials.fromSecret(secret),
     databaseName: DB_NAME,
     multiAz: false, // todo
-    instanceType: InstanceType.of(
-      InstanceClass.T3,
-      InstanceSize.MICRO,
-    ),
+    instanceType: InstanceType.of(InstanceClass.T3, InstanceSize.MICRO),
     cloudwatchLogsExports: ["postgresql", "upgrade", "iam-db-auth-error"], // enable log exports
     cloudwatchLogsRetention: RetentionDays.ONE_MONTH,
   });

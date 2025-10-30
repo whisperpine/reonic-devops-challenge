@@ -1,5 +1,5 @@
-import type { Construct } from "constructs";
 import { CfnGroup } from "aws-cdk-lib/aws-resourcegroups";
+import type { Construct } from "constructs";
 import { getTagFilters } from "./tags";
 
 /**

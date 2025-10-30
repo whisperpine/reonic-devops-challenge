@@ -1,7 +1,6 @@
-import { RemovalPolicy } from "aws-cdk-lib";
-import { CfnOutput } from "aws-cdk-lib";
-import type { Construct } from "constructs";
+import { CfnOutput, RemovalPolicy } from "aws-cdk-lib";
 import { Repository } from "aws-cdk-lib/aws-ecr";
+import type { Construct } from "constructs";
 
 /**
  * Create an AWS ECR repository.
