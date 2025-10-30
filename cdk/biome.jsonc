@@ -1,0 +1,11 @@
+{
+  "$schema": "https://biomejs.dev/schemas/latest/schema.json",
+  "root": false,
+  "formatter": { "indentStyle": "space" },
+  "files": {
+    "includes": [
+      "./lib/**",
+      "./app/**"
+    ]
+  }
+}

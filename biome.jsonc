@@ -1,13 +1,9 @@
 {
   "$schema": "https://biomejs.dev/schemas/latest/schema.json",
-  "files": {
-    "includes": [
-      // "./app/**",
-      "./cdk/lib/**",
-      "./cdk/app/**"
-    ]
-  },
+  "files": { "includes": [] },
+  "formatter": { "indentStyle": "space" },
   "assist": {
+    "enabled": true,
     "actions": {
       "source": {
         "organizeImports": "on"
