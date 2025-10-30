@@ -38,12 +38,12 @@ jobs:
         shell: nix shell nixpkgs#markdownlint-cli --quiet --command bash {0}
         run: markdownlint ./*.md
 
-  biome-lint:
+  biome-check:
     runs-on: ubuntu-latest
-    name: lint typescript code by biome
+    name: check typescript code by biome
     steps:
       - uses: actions/checkout@v5
       - uses: cachix/install-nix-action@v31
       - name: Run biome lint command
         shell: nix shell nixpkgs#biome --quiet --command bash {0}
-        run: biome lint
+        run: biome check
