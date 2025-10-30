@@ -2,6 +2,26 @@
   "$schema": "https://biomejs.dev/schemas/latest/schema.json",
   "root": false,
   "formatter": { "indentStyle": "space" },
+  "linter": {
+    "rules": {
+      "style": {
+        "useNamingConvention": {
+          "level": "warn",
+          "options": {
+            "strictCase": true,
+            "conventions": [
+              {
+                "selector": { "kind": "function" },
+                "formats": ["camelCase"]
+              }
+            ]
+          }
+        },
+        "useGraphqlNamingConvention": "warn",
+        "useFilenamingConvention": "error"
+      }
+    }
+  },
   "files": {
     "includes": [
       "./lib/**",
