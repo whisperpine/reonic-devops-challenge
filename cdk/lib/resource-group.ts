@@ -9,7 +9,7 @@ import { getTagFilters } from "./tags";
  * @param env The value of the tag "environment".
  * @returns The created AWS Resource Group.
  */
-export default function CreateResourceGroup(
+export default function createResourceGroup(
   scope: Construct,
   tags: { [key: string]: string },
   env: string,

@@ -21,7 +21,7 @@ import { SUBNET_APP } from "./vpc";
  * @param secret The secret created by Secrets Manager.
  * @returns The created AWS Lambda Function.
  */
-export default function CreateLambda(
+export default function createLambda(
   scope: Construct,
   vpc: Vpc,
   secret: Secret,
@@ -35,13 +35,13 @@ export default function CreateLambda(
   );
 
   // Security group for Lambda.
-  const lambdaSG = new SecurityGroup(scope, "ReonicLambdaSG", {
+  const lambdaSg = new SecurityGroup(scope, "ReonicLambdaSG", {
     vpc,
     allowAllOutbound: true,
   });
 
   // Allow Lambda SG to connect to RDS SG on PostgreSQL default port.
-  db.connections.allowDefaultPortFrom(lambdaSG);
+  db.connections.allowDefaultPortFrom(lambdaSg);
 
   // Filter out the subnets dedicated for applications.
   const selectedSubnets: ISubnet[] = vpc.isolatedSubnets.filter(
@@ -54,20 +54,22 @@ export default function CreateLambda(
     memorySize: 256, // in MB
     timeout: Duration.seconds(8),
     environment: {
+      // biome-ignore lint/style/useNamingConvention: SCREAMING_SNAKE_CASE must be used here.
       NODE_ENV: "production", // Options: "production", "staging", "development".
+      // biome-ignore lint/style/useNamingConvention: SCREAMING_SNAKE_CASE must be used here.
       DB_SECRET_NAME: secret.secretArn, // Used to get credentials from AWS Secrets Manager.
     },
     vpc,
     vpcSubnets: { subnets: selectedSubnets },
-    securityGroups: [lambdaSG],
-    logGroup: CreateCloudwatchLogGroup(scope),
+    securityGroups: [lambdaSg],
+    logGroup: createCloudwatchLogGroup(scope),
   });
 
   // Automatically attaches a policy "secretsmanager:GetSecretValue"
   // on this specific secret, granting the lambda function to read.
   secret.grantRead(lambdaFunction);
 
-  CreateAlarms(scope, lambdaFunction);
+  createAlarms(scope, lambdaFunction);
 
   // // Output the Lambda Function's name.
   // new CfnOutput(scope, "LambdaFunctionName", {
@@ -88,7 +90,7 @@ export default function CreateLambda(
  * Create an AWS Cloudwatch Log Group for API Gateway.
  * @returns The created AWS Cloudwatch Log Group.
  */
-function CreateCloudwatchLogGroup(scope: Construct): LogGroup {
+function createCloudwatchLogGroup(scope: Construct): LogGroup {
   return new LogGroup(scope, "ReonicLambdaLogGroup", {
     // logGroupName: "/aws/lambda/ReonicLambdaLogGroup",
     retention: RetentionDays.ONE_WEEK,
@@ -97,7 +99,7 @@ function CreateCloudwatchLogGroup(scope: Construct): LogGroup {
 }
 
 /** Create Cloudwatch Alarms for the Lambda Function. */
-function CreateAlarms(
+function createAlarms(
   scope: Construct,
   lambdaFunction: DockerImageFunction,
 ): void {

@@ -17,12 +17,12 @@ import type { Construct } from "constructs";
  * @param lambdaFunction The Lambda Function triggered by this API Gateway.
  * @returns The created AWS API Gateway.
  */
-export default function CreateAPIGateway(
+export default function createApiGateway(
   scope: Construct,
   lambdaFunction: DockerImageFunction,
 ): LambdaRestApi {
   // Create an AWS Cloudwatch Log Group.
-  const logGroup: LogGroup = CreateCloudwatchLogGroup(scope);
+  const logGroup: LogGroup = createCloudwatchLogGroup(scope);
 
   // Create an AWS API Gateway.
   const api = new LambdaRestApi(scope, "ReonicApiGateway", {
@@ -64,7 +64,7 @@ export default function CreateAPIGateway(
  * Create an AWS Cloudwatch Log Group for API Gateway.
  * @returns The created AWS Cloudwatch Log Group.
  */
-function CreateCloudwatchLogGroup(scope: Construct): LogGroup {
+function createCloudwatchLogGroup(scope: Construct): LogGroup {
   // Log Group.
   const apiLogGroup = new LogGroup(scope, "ReonicApiGatewayLogGroup", {
     // logGroupName: "/aws/apigateway/ReonicApiGatewayLogGroup",

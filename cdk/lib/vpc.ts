@@ -10,7 +10,7 @@ import type { Construct } from "constructs";
  * @param scope Pass "this" in the constructor of InfraStack.
  * @returns The created AWS VPC.
  */
-export default function CreateVpc(scope: Construct): Vpc {
+export default function createVpc(scope: Construct): Vpc {
   const vpc = new Vpc(scope, "ReonicVPC", {
     maxAzs: 2,
     natGateways: 0, // we don't actually use public subnets.

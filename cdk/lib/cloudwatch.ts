@@ -9,7 +9,7 @@ import type { Construct } from "constructs";
  * @param lambdaFunction The Lambda Function to retrieve metrics from.
  * @param api The API Gateway to retrieve metrics from.
  */
-export function CreateDashboard(
+export function createDashboard(
   scope: Construct,
   lambdaFunction: DockerImageFunction,
   api: LambdaRestApi,

@@ -7,7 +7,7 @@ import { DB_NAME, DB_USERNAME } from "./rds";
  * @param scope Pass "this" in the constructor of InfraStack.
  * @returns The created secret.
  */
-export default function CreateSecret(scope: Construct): Secret {
+export default function createSecret(scope: Construct): Secret {
   // Create a secret in json format.
   return new Secret(scope, "ReonicRDSSecret", {
     generateSecretString: {

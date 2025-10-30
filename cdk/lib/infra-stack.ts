@@ -5,14 +5,14 @@ import type { DockerImageFunction } from "aws-cdk-lib/aws-lambda";
 import type { DatabaseInstance } from "aws-cdk-lib/aws-rds";
 import type { Secret } from "aws-cdk-lib/aws-secretsmanager";
 import type { Construct } from "constructs";
-import CreateAPIGateway from "./api-gateway";
-import { CreateDashboard } from "./cloudwatch";
-import CreateLambda from "./lambda";
-import CreateRds from "./rds";
-import CreateResourceGroup from "./resource-group";
-import CreateSecret from "./secrets-manager";
+import createApiGateway from "./api-gateway";
+import { createDashboard } from "./cloudwatch";
+import createLambda from "./lambda";
+import createRds from "./rds";
+import createResourceGroup from "./resource-group";
+import createSecret from "./secrets-manager";
 import { defaultTags, ENVIRONMENTS } from "./tags";
-import CreateVpc from "./vpc";
+import createVpc from "./vpc";
 
 /** The entrypoint for setting up an AWS Cloudformation Stack. */
 export class InfraStack extends Stack {
@@ -38,24 +38,24 @@ export class InfraStack extends Stack {
     super(scope, id, { ...props, tags: mergedTags });
 
     // Create an AWS Resource Group.
-    CreateResourceGroup(this, mergedTags, env);
+    createResourceGroup(this, mergedTags, env);
 
     // Create an AWS VPC and relevant resources.
-    const vpc: Vpc = CreateVpc(this);
+    const vpc: Vpc = createVpc(this);
 
     // Create an AWS Secret managed by Secrets Manager.
-    const secret: Secret = CreateSecret(this);
+    const secret: Secret = createSecret(this);
 
     // Create an AWS RDS Postgres instance.
-    const db: DatabaseInstance = CreateRds(this, vpc, secret, env);
+    const db: DatabaseInstance = createRds(this, vpc, secret, env);
 
     // Create an AWS Lambda Function.
-    const lambda: DockerImageFunction = CreateLambda(this, vpc, secret, db);
+    const lambda: DockerImageFunction = createLambda(this, vpc, secret, db);
 
     // Create an AWS API Gateway.
-    const api: LambdaRestApi = CreateAPIGateway(this, lambda);
+    const api: LambdaRestApi = createApiGateway(this, lambda);
 
     // Create a Cloudwatch Dashboard.
-    CreateDashboard(this, lambda, api);
+    createDashboard(this, lambda, api);
   }
 }

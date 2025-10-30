@@ -29,7 +29,7 @@ import { SUBNET_DB } from "./vpc";
  * @param env The value of the tag "environment".
  * @returns The created AWS RDS Postgres instance.
  */
-export default function CreateRds(
+export default function createRds(
   scope: Construct,
   vpc: Vpc,
   secret: Secret,

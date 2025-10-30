@@ -8,7 +8,7 @@ import type { Construct } from "constructs";
  * @param env The value of the tag "environment".
  * @returns The created AWS ECR repository.
  */
-export default function CreateECR(scope: Construct, env: string): Repository {
+export default function createEcr(scope: Construct, env: string): Repository {
   // ECR repository.
   const repo = new Repository(scope, "ReonicECRRepository", {
     repositoryName: `reonic-ecr-${env}`, // Human-readable name
