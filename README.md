@@ -150,7 +150,7 @@ npm run deploy
 ## 🧠 Evaluation Criteria
 
 | Area | What We’re Looking For |
-|------|------------------------|
+| - | - |
 | ✅ Infrastructure Design | Clean, modular CDK with good defaults |
 | 🔐 Security | Reasonable IAM, use of Secrets Manager, VPC isolation |
 | ⚙️ Automation | Functional and understandable GitHub Actions workflow |
