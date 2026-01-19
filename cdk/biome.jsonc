@@ -1,5 +1,11 @@
 {
   "$schema": "https://biomejs.dev/schemas/latest/schema.json",
+  "files": {
+    "includes": [
+      "./lib/**",
+      "./app/**"
+    ]
+  },
   "root": false,
   "formatter": { "indentStyle": "space" },
   "linter": {
@@ -21,11 +27,5 @@
         "useFilenamingConvention": "error"
       }
     }
-  },
-  "files": {
-    "includes": [
-      "./lib/**",
-      "./app/**"
-    ]
   }
 }
