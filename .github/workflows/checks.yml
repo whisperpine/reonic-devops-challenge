@@ -46,4 +46,4 @@ jobs:
       - uses: cachix/install-nix-action@v31
       - name: Run biome lint command
         shell: nix shell nixpkgs#biome --quiet --command bash {0}
-        run: biome check
+        run: biome check --error-on-warnings
