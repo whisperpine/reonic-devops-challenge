@@ -94,7 +94,7 @@ Trade-offs:
   leads to the failure of stack destroy. To make sure that the prod stack can be
   destroyed successfully, I choose to use `RemovalPolicy.SNAPSHOT`, which still
   keeps all the data while elimitating the drawbacks of stack destroy failure.
-  
+
 ## How to use the solution and test it
 
 ### How to test it
