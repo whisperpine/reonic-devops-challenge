@@ -28,8 +28,8 @@
               sops # simple tool for managing secrets
               cocogitto # conventional commit toolkit
               git-cliff # generate changelog
-              husky # managing git hooks
               typos # check misspelling
+              prek # better pre-commit
 
               # --- typescript --- #
               biome # linting js and ts
@@ -53,14 +53,12 @@
               git log -1 --format="%cd" --date=format:"%Y-%m-%d" -- flake.lock |
                 awk '{printf "\"flake.lock\" last modified on: %s", $1}' &&
                 echo " ($((($(date +%s) - $(git log -1 --format="%ct" -- flake.lock)) / 86400)) days ago)"
+              # Install git hooks managed by prek.
+              prek install --quiet
               # Install python packages.
               uv sync --directory diagrams
               # Enable python virtual environment.
               source diagrams/.venv/bin/activate
-              # Install git hook managed by husky.
-              if [ ! -e "./.husky/_" ]; then
-                husky install
-              fi
             '';
           };
         }
